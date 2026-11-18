@@ -127,11 +127,11 @@ Once a week, re-check the oldest `lastChecked` page against its sources, update 
 
 ## Priority list
 
-Done: [x] ATL · [x] JFK · [x] LAX · [x] ORD · [x] JNB
+Done: [x] ATL · [x] JFK · [x] LAX · [x] ORD · [x] JNB · [x] DFW
 
 Next, in order. The top US airports by passengers come first; international hubs follow.
 
-1. [ ] DFW, Dallas/Fort Worth
+1. [x] DFW, Dallas/Fort Worth
 2. [ ] DEN, Denver
 3. [ ] LAS, Las Vegas Harry Reid
 4. [ ] MCO, Orlando
