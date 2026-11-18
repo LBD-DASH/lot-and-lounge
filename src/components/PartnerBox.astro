@@ -1,0 +1,28 @@
+---
+import { getPartner } from '../lib/partners';
+import { withBase } from '../lib/url';
+interface Props { keys: string[]; airport: string }
+const { keys, airport } = Astro.props;
+const list = keys.map(getPartner);
+const anyAffiliate = list.some((p) => p.affiliate);
+---
+{list.length > 0 && (
+  <aside class="partners" aria-labelledby="partners-h">
+    <h2 id="partners-h">Compare and book beyond the official lots</h2>
+    <p class="muted small">
+      These third-party sites can show off-airport lots and lounge passes for {airport}. Check what's included (taxes, fees,
+      shuttle frequency) before you book.
+      {anyAffiliate
+        ? <> Some of these are affiliate links. <a href={withBase('affiliate-disclosure/')}>How we make money</a>.</>
+        : <> We have no affiliate relationship with these sites today. <a href={withBase('affiliate-disclosure/')}>Disclosure</a>.</>}
+    </p>
+    <ul>
+      {list.map((p) => (
+        <li>
+          <a href={p.url} rel={p.affiliate ? 'sponsored noopener' : 'nofollow noopener'} target="_blank">{p.name}</a>
+          <span class="muted small"> · {p.blurb}</span>
+        </li>
+      ))}
+    </ul>
+  </aside>
+)}

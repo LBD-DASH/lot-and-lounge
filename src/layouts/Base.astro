@@ -1,0 +1,65 @@
+---
+import '../styles/global.css';
+import { withBase, absUrl, SITE_NAME } from '../lib/url';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string; // site-relative, e.g. "airports/atl/"
+  jsonLd?: object[];
+  ogType?: string;
+}
+const { title, description, path, jsonLd = [], ogType = 'website' } = Astro.props;
+const canonical = absUrl(path, Astro.site);
+const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
+    <link rel="sitemap" href={withBase('sitemap.xml')} />
+    {jsonLd.map((obj) => <script type="application/ld+json" set:html={JSON.stringify(obj)} />)}
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href={withBase('')}><span aria-hidden="true">🅿︎</span> Lot &amp; Lounge</a>
+        <nav aria-label="Main">
+          <a href={withBase('')}>Airports</a>
+          <a href={withBase('about/')}>About</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main" class="wrap">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>
+          Lot &amp; Lounge compares official airport parking rates and lounge options, terminal by terminal. Prices come from
+          official sources on the date shown on each page and can change without notice, so always check before you travel.
+        </p>
+        <p>
+          <a href={withBase('affiliate-disclosure/')}>Affiliate disclosure</a> ·
+          <a href={withBase('privacy/')}>Privacy</a> ·
+          <a href={withBase('about/')}>About &amp; sourcing</a> ·
+          <a href={withBase('sitemap.xml')}>Sitemap</a>
+        </p>
+        <p class="muted">© {new Date().getFullYear()} Lot &amp; Lounge. Not affiliated with any airport or airline.</p>
+      </div>
+    </footer>
+  </body>
+</html>
