@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { withBase, absUrl, SITE_NAME } from '../lib/url';
+
+const airports = (await getCollection('airports')).sort((a, b) => a.data.city.localeCompare(b.data.city));
+const title = 'Airport Parking Costs & Lounge Access, Airport by Airport';
+const description =
+  'Real total parking costs and lounge options for major airports, checked against official airport and lounge sources, terminal by terminal.';
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: absUrl('', Astro.site) },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: airports.map((a, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: absUrl(`airports/${a.id}/`, Astro.site),
+      name: `${a.data.airportName} (${a.data.iata})`,
+    })),
+  },
+];
+---
+<Base title={`${SITE_NAME}: ${title}`} description={description} path="" jsonLd={jsonLd}>
+  <section class="hero">
+    <h1>Where to park, what it really costs, and which lounge you can get into</h1>
+    <p class="lede">
+      One page per airport. Official rates with the date we checked them, the cheaper park-and-ride or transit option, and
+      every lounge listed by terminal with how you get in.
+    </p>
+  </section>
+  <h2>Airports</h2>
+  <ul class="cards">
+    {airports.map((a) => (
+      <li class="card">
+        <a href={withBase(`airports/${a.id}/`)}>
+          <span class="iata">{a.data.iata}</span>
+          <span class="name">{a.data.airportName}</span>
+          <span class="muted small">{a.data.city}, {a.data.country}</span>
+          <span class="small">From <strong>{a.data.cheapestOfficial.price}</strong> · {a.data.cheapestOfficial.label}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+  <p class="muted small">New airports are added regularly. Prices are official published rates on the "last checked" date shown on each page.</p>
+</Base>

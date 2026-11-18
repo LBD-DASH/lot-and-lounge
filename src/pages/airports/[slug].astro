@@ -1,0 +1,92 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PartnerBox from '../../components/PartnerBox.astro';
+import { absUrl, withBase, SITE_NAME } from '../../lib/url';
+
+export async function getStaticPaths() {
+  const airports = await getCollection('airports');
+  return airports.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+const { Content, headings } = await render(entry);
+const path = `airports/${entry.id}/`;
+const url = absUrl(path, Astro.site);
+const iso = d.lastUpdated.toISOString().slice(0, 10);
+const pretty = d.lastUpdated.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: d.title,
+    description: d.description,
+    dateModified: iso,
+    datePublished: iso,
+    mainEntityOfPage: url,
+    author: { '@type': 'Organization', name: SITE_NAME },
+    publisher: { '@type': 'Organization', name: SITE_NAME },
+    about: { '@type': 'Airport', name: d.airportName, iataCode: d.iata },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: d.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Airports', item: absUrl('', Astro.site) },
+      { '@type': 'ListItem', position: 2, name: `${d.iata} parking & lounges`, item: url },
+    ],
+  },
+];
+const toc = headings.filter((h) => h.depth === 2);
+---
+<Base title={d.title} description={d.description} path={path} jsonLd={jsonLd} ogType="article">
+  <nav class="crumbs small" aria-label="Breadcrumb"><a href={withBase('')}>Airports</a> › {d.iata}</nav>
+  <article class="airport">
+    <h1>{d.airportName} ({d.iata}): parking costs &amp; lounges</h1>
+    <p class="meta small">
+      Last updated <time datetime={iso}>{pretty}</time> · Prices last checked {d.lastChecked} against official sources · {d.city}, {d.country}
+    </p>
+    <p class="lede">{d.summary}</p>
+    <div class="callout">
+      <strong>Cheapest official option we found:</strong> {d.cheapestOfficial.label}, <strong>{d.cheapestOfficial.price}</strong>
+      (<a href={d.cheapestOfficial.sourceUrl} rel="noopener" target="_blank">official source</a>, checked {d.lastChecked}).
+    </div>
+    {toc.length > 2 && (
+      <nav class="toc" aria-label="On this page">
+        <strong>On this page</strong>
+        <ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+      </nav>
+    )}
+    <div class="prose"><Content /></div>
+
+    <PartnerBox keys={d.partners} airport={d.iata} />
+
+    <section aria-labelledby="faq-h">
+      <h2 id="faq-h">FAQ</h2>
+      {d.faq.map((f) => (
+        <details>
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </section>
+
+    <section aria-labelledby="src-h">
+      <h2 id="src-h">Sources (checked {d.lastChecked})</h2>
+      <ul class="small">
+        {d.sources.map((s) => <li><a href={s.url} rel="noopener" target="_blank">{s.label}</a></li>)}
+      </ul>
+      <p class="muted small">
+        Rates and lounge details change often. If something here is out of date, the official source wins. Lounge access rules
+        are set by each operator; we don't recommend credit cards or financial products.
+      </p>
+    </section>
+  </article>
+</Base>
