@@ -117,7 +117,7 @@ Then check:
 Push **only source files** (never `node_modules/` or `dist/`) to `main`. The GitHub Pages workflow builds and deploys automatically.
 
 - With the GitHub MCP: `push_files` (owner `LBD-DASH`, repo `lot-and-lounge`, branch `main`) with the new `src/content/airports/<iata>.md` and the updated `PLAYBOOK.md`. Commit message: `Add <IATA> airport page`.
-- Then check the latest Actions run (`actions_list` → workflow runs) and `curl -sI https://lbd-dash.github.io/lot-and-lounge/airports/<iata>/` (expect 200).
+- Then check the latest Actions run (`actions_list` → workflow runs) and `curl -sI https://lotandlounge.com/airports/<iata>/` (expect 200).
 
 ## 6. Refresh old pages
 

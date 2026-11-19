@@ -2,7 +2,7 @@
 
 Static Astro site: one page per airport covering official parking rates (with the date they were checked), the real total cost of a trip, cheaper park-and-ride and transit options, and lounges listed by terminal with access methods.
 
-Live: https://lbd-dash.github.io/lot-and-lounge/
+Live: https://lotandlounge.com/
 
 ## Develop
 
