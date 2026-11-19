@@ -1,0 +1,58 @@
+---
+/** Decorative hero illustration: a top-down parking lot with a flight path taking off from "your" bay. No real places depicted. */
+const bayX = Array.from({ length: 9 }, (_, i) => 52 + i * 56);
+type Car = { bay: number; row: 'a' | 'b'; color: string };
+const cars: Car[] = [
+  { bay: 0, row: 'a', color: '#e9eef6' }, { bay: 1, row: 'a', color: '#6aa2ff' }, { bay: 3, row: 'a', color: '#ff7a59' },
+  { bay: 5, row: 'a', color: '#e9eef6' }, { bay: 7, row: 'a', color: '#f5a524' },
+  { bay: 0, row: 'b', color: '#f5a524' }, { bay: 2, row: 'b', color: '#e9eef6' }, { bay: 3, row: 'b', color: '#6aa2ff' },
+  { bay: 5, row: 'b', color: '#e9eef6' }, { bay: 6, row: 'b', color: '#ff7a59' },
+];
+const flight = 'M304 262 C 300 150, 380 84, 512 66';
+---
+<svg class="hero-scene" viewBox="0 0 560 430" role="img" aria-label="Illustration: a parking lot with a plane taking off along a dotted flight path">
+  <defs>
+    <linearGradient id="hs-asphalt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#18325a"/><stop offset="1" stop-color="#0c1c36"/></linearGradient>
+    <radialGradient id="hs-glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#f5a524" stop-opacity=".55"/><stop offset="1" stop-color="#f5a524" stop-opacity="0"/></radialGradient>
+    <pattern id="hs-grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0v28" fill="none" stroke="#ffffff" stroke-opacity=".045"/></pattern>
+    <symbol id="hs-car" viewBox="0 0 34 54">
+      <rect x="1" y="1" width="32" height="52" rx="10" fill="currentColor"/>
+      <rect x="5" y="11" width="24" height="10" rx="4" fill="#0c1c36" fill-opacity=".72"/>
+      <rect x="6" y="37" width="22" height="7" rx="3" fill="#0c1c36" fill-opacity=".55"/>
+      <rect x="8" y="23" width="18" height="12" rx="3" fill="#ffffff" fill-opacity=".14"/>
+    </symbol>
+  </defs>
+  <rect x="0" y="0" width="560" height="430" rx="28" fill="url(#hs-asphalt)"/>
+  <rect x="0" y="0" width="560" height="430" rx="28" fill="url(#hs-grid)"/>
+  <!-- sky lights -->
+  <g fill="#fff">
+    <circle cx="70" cy="62" r="1.4" opacity=".7"/><circle cx="132" cy="38" r="1" opacity=".5"/><circle cx="196" cy="84" r="1.2" opacity=".55"/>
+    <circle cx="420" cy="150" r="1" opacity=".5"/><circle cx="480" cy="128" r="1.4" opacity=".6"/><circle cx="96" cy="128" r=".9" opacity=".45"/>
+  </g>
+  <!-- runway edge lights -->
+  <g fill="#f5a524">{Array.from({ length: 9 }, (_, i) => <circle cx={300 + i * 28} cy={176 - i * 3} r="2" opacity={0.25 + i * 0.07} />)}</g>
+  <!-- lot -->
+  <g stroke="#ffffff" stroke-opacity=".55" stroke-width="2.2" stroke-linecap="round">
+    <path d="M52 222H500M52 398H500" />
+    {bayX.map((x) => <path d={`M${x} 222v66M${x} 332v66`} />)}
+  </g>
+  <path d="M40 310H514" stroke="#f5a524" stroke-opacity=".65" stroke-width="2.4" stroke-dasharray="14 12"/>
+  <g fill="#ffffff" fill-opacity=".35"><path d="M470 304l10 6-10 6zM90 304l-10 6 10 6z"/></g>
+  {cars.map((c) => (
+    <use href="#hs-car" x={bayX[c.bay] + 11} y={c.row === 'a' ? 228 : 338} width="34" height="54" style={`color:${c.color}`} transform={c.row === 'b' ? `rotate(180 ${bayX[c.bay] + 28} 365)` : undefined} />
+  ))}
+  <!-- your bay -->
+  <circle cx="304" cy="256" r="46" fill="url(#hs-glow)"/>
+  <rect x="282" y="226" width="44" height="58" rx="8" fill="none" stroke="#f5a524" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="304" y="268" text-anchor="middle" font-family="Inter Variable, system-ui, sans-serif" font-weight="800" font-size="30" fill="#f5a524">P</text>
+  <!-- flight path + plane -->
+  <path class="hs-path" d={flight} fill="none" stroke="#ffffff" stroke-opacity=".8" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="2 9"/>
+  <g class="hs-plane"><path transform="translate(494 44) scale(1.75) rotate(-7 12 12)" d="M21 12c0-.8-.7-1.5-1.5-1.5H15L10 3H8l2.5 7.5H6L4.5 8.5H3l1 3.5-1 3.5h1.5L6 13.5h4.5L8 21h2l5-7.5h4.5c.8 0 1.5-.7 1.5-1.5z" fill="#ffffff"/></g>
+  <!-- P sign -->
+  <g transform="translate(36 120)">
+    <rect x="16" y="44" width="5" height="64" rx="2" fill="#7f93b3"/>
+    <rect x="0" y="0" width="38" height="46" rx="8" fill="#2f6fe0"/>
+    <rect x="3" y="3" width="32" height="40" rx="6" fill="none" stroke="#fff" stroke-opacity=".9" stroke-width="1.6"/>
+    <text x="19" y="34" text-anchor="middle" font-family="Inter Variable, system-ui, sans-serif" font-weight="800" font-size="27" fill="#fff">P</text>
+  </g>
+</svg>
