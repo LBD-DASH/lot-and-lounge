@@ -27,5 +27,14 @@
     "blurb": "Pay-per-visit lounge bookings at participating lounges.",
     "url": "https://www.loungepass.com/",
     "affiliateUrl": ""
+  },
+  "voyaij": {
+    "name": "Voyaij",
+    "kind": "app",
+    "blurb": "Forward your booking emails and Voyaij builds your day-by-day trip, with clash alerts and offline access. Free to start.",
+    "url": "https://myvoyaij.com/signup",
+    "playUrl": "https://play.google.com/store/apps/details?id=com.myvoyaij.app",
+    "demoUrl": "https://myvoyaij.com/demo",
+    "affiliateUrl": ""
   }
 }
