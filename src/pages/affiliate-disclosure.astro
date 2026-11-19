@@ -1,8 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
-import partners from '../data/partners.json';
-const list = Object.entries(partners).filter(([k]) => !k.startsWith('_')) as [string, any][];
-const anyAffiliate = list.some(([, p]) => p.affiliate);
+import { allPartners } from '../lib/partners';
+const list = allPartners();
+const anyAffiliate = list.some((p) => p.affiliate);
 ---
 <Base title="Affiliate disclosure" description="How Lot & Lounge makes money: which outbound links are affiliate links (currently none), and how that never changes the official prices we publish." path="affiliate-disclosure/">
   <div class="prose">
@@ -10,7 +10,7 @@ const anyAffiliate = list.some(([, p]) => p.affiliate);
     <p>Lot &amp; Lounge plans to earn money through affiliate commissions: if you click a partner link and book, the partner may pay us a share at no extra cost to you.</p>
     <p><strong>Current status:</strong> {anyAffiliate ? 'some partner links below are affiliate links.' : 'none of our links are affiliate links yet. Partner links point to the plain official websites.'}</p>
     <ul>
-      {list.map(([, p]) => <li>{p.name}: {p.affiliate ? 'affiliate link' : 'plain link, no affiliate relationship'}</li>)}
+      {list.map((p) => <li>{p.name}: {p.affiliate ? 'affiliate link' : 'plain link, no affiliate relationship'}</li>)}
     </ul>
     <p>Commissions never change the official rates we publish or the order of the cheapest options. Official airport-run parking is always listed, even when no one pays us for it. We don't recommend credit cards.</p>
   </div>

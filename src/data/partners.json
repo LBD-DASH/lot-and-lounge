@@ -1,31 +1,31 @@
 {
-  "_note": "Single source of truth for every outbound partner link. Plain official URLs only. When an affiliate program is approved, replace `url` with the tracked link the network issues and set `affiliate` to true. Never invent tracking IDs.",
+  "_note": "Single source of truth for every outbound partner link. `url` is the plain official site (the fallback, always kept). When a program approves us, paste the tracked link the network issues into `affiliateUrl` (that is the ONLY field to change); the site then uses it automatically, marks the link as an affiliate link, and the disclosure page updates. Leave `affiliateUrl` empty until approved. Never invent tracking IDs. All partner links render with rel=\"sponsored nofollow noopener\".",
   "airport-parking-reservations": {
     "name": "Airport Parking Reservations",
-    "url": "https://www.airportparkingreservations.com/",
     "kind": "parking",
     "blurb": "Compare and pre-book off-airport lots in the US and Canada.",
-    "affiliate": false
+    "url": "https://www.airportparkingreservations.com/",
+    "affiliateUrl": ""
   },
   "parksleepfly": {
     "name": "ParkSleepFly",
-    "url": "https://www.parksleepfly.com/",
     "kind": "parking",
     "blurb": "Hotel + parking packages near North American airports.",
-    "affiliate": false
+    "url": "https://www.parksleepfly.com/",
+    "affiliateUrl": ""
   },
   "priority-pass": {
     "name": "Priority Pass",
-    "url": "https://www.prioritypass.com/",
     "kind": "lounge",
     "blurb": "Lounge membership; check its airport pages for the lounges it currently lists.",
-    "affiliate": false
+    "url": "https://www.prioritypass.com/",
+    "affiliateUrl": ""
   },
   "lounge-pass": {
     "name": "Lounge Pass",
-    "url": "https://www.loungepass.com/",
     "kind": "lounge",
     "blurb": "Pay-per-visit lounge bookings at participating lounges.",
-    "affiliate": false
+    "url": "https://www.loungepass.com/",
+    "affiliateUrl": ""
   }
 }

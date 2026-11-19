@@ -1,5 +1,5 @@
 ---
-import { getPartner } from '../lib/partners';
+import { getPartner, PARTNER_REL } from '../lib/partners';
 import { withBase } from '../lib/url';
 interface Props { keys: string[]; airport: string }
 const { keys, airport } = Astro.props;
@@ -19,7 +19,7 @@ const anyAffiliate = list.some((p) => p.affiliate);
     <ul>
       {list.map((p) => (
         <li>
-          <a href={p.url} rel={p.affiliate ? 'sponsored noopener' : 'nofollow noopener'} target="_blank">{p.name}</a>
+          <a href={p.url} rel={PARTNER_REL} target="_blank">{p.name}</a>
           <span class="muted small"> · {p.blurb}</span>
         </li>
       ))}
