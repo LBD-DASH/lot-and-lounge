@@ -12,7 +12,7 @@ const shotSm = withBase('partners/voyaij-app-cities-sm.svg');
   <div class="fa-card">
     <span class="fa-badge"><Icon name="plane" size={14} /> Featured app</span>
     <div class="fa-body">
-      <span class="fa-thumb" aria-hidden="true"><img src={shotSm} alt="" width="390" height="665" /></span>
+      <span class="fa-thumb" aria-hidden="true"><img src={shotSm} alt="" width="393" height="852" /></span>
       <div class="fa-text">
         <h3>{app.name}</h3>
         <p>{app.blurb}</p>
@@ -24,14 +24,25 @@ const shotSm = withBase('partners/voyaij-app-cities-sm.svg');
     </div>
   </div>
 ) : (
-  <section class="fa-band" aria-label="Featured app">
-    <svg class="fa-path" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true"><path d="M-10 170 C 250 170, 330 30, 620 60 S 1000 140, 1210 20" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="2 10"/></svg>
-    <div class="wrap fa-band-in">
-      <div class="fa-phone" role="img" aria-label="Screenshot of the Voyaij app showing a trip with London, Paris and Amsterdam"><span class="fa-notch"></span><img src={shot} alt="" width="780" height="1330" /><span class="fa-plane"><Icon name="plane" size={18} /></span></div>
+  <section class="fa-band" aria-labelledby="fa-h">
+    <div class="wrap fa-in">
+      <header class="fa-head">
+        <span class="fa-eyebrow">Featured app</span>
+        <h2 class="fa-hero" id="fa-h">Our travel <em>partner</em></h2>
+      </header>
+      <div class="fa-stage">
+        <svg class="fa-path fa-path-back" viewBox="0 0 600 760" aria-hidden="true">
+          <g transform="translate(300 380) rotate(-22)"><path d="M-290 0 A290 95 0 0 1 290 0" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 11"/></g>
+        </svg>
+        <div class="fa-phone" role="img" aria-label="Screenshot of the Voyaij app showing a trip with London, Paris and Amsterdam"><span class="fa-notch"></span><img src={shot} alt="" width="786" height="1704" /></div>
+        <svg class="fa-path fa-path-front" viewBox="0 0 600 760" aria-hidden="true">
+          <g transform="translate(300 380) rotate(-22)"><path d="M-290 0 A290 95 0 0 0 290 0" fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 11"/>
+          <g transform="translate(237 54) rotate(-35) scale(2.6) translate(-12 -12)" fill="#f5a524"><path d="M21 12c0-.8-.7-1.5-1.5-1.5H15L10 3H8l2.5 7.5H6L4.5 8.5H3l1 3.5-1 3.5h1.5L6 13.5h4.5L8 21h2l5-7.5h4.5c.8 0 1.5-.7 1.5-1.5z"/></g></g>
+        </svg>
+      </div>
       <div class="fa-copy">
-        <span class="fa-badge"><Icon name="plane" size={14} /> Featured app</span>
-        <h2>{app.name}</h2>
-        <p>{app.blurb}</p>
+        <h3 class="fa-name">{app.name}</h3>
+        <p class="fa-pitch">{app.blurb}</p>
         <div class="fa-actions">
           <a class="gp-btn" href={app.playUrl} rel={PARTNER_REL} target="_blank"><svg width="18" height="20" viewBox="0 0 18 20" aria-hidden="true"><path d="M1 1l9 9-9 9z" fill="#34a853"/><path d="M1 1l11 6-2 3z" fill="#4285f4"/><path d="M1 19l11-6-2-3z" fill="#ea4335"/><path d="M12 7l5 3-5 3-2-3z" fill="#fbbc04"/></svg><span><small>Get it on</small><b>Google Play</b></span></a>
           <a class="fa-start" href={app.url} rel={PARTNER_REL} target="_blank">Get started free <Icon name="arrow" size={16} /></a>
