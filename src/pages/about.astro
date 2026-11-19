@@ -1,9 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
 ---
 <Base title="About Lot & Lounge and how we source prices" description="How Lot & Lounge checks airport parking rates and lounge access: official sources only, dated checks, and no invented prices or lounge names." path="about/">
-  <div class="prose">
-    <h1>About Lot &amp; Lounge</h1>
+  <PageHead title="About Lot & Lounge" eyebrow="About" />
+  <div class="wrap"><div class="prose read page-body">
     <p>Lot &amp; Lounge answers two boring but expensive travel questions for each airport: <em>where should I leave the car, and what will it really cost?</em> and <em>which lounge can I actually get into?</em></p>
     <h2>How we source</h2>
     <ul>
@@ -18,5 +19,5 @@ import Base from '../layouts/Base.astro';
       <li>We aren't affiliated with any airport, airline or lounge operator.</li>
     </ul>
     <p>Spotted something out of date? The official source always wins, and we update pages as rates change.</p>
-  </div>
+  </div></div>
 </Base>
