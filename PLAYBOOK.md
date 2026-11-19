@@ -127,38 +127,33 @@ Once a week, re-check the oldest `lastChecked` page against its sources, update 
 
 ## Priority list
 
-Done: [x] ATL · [x] JFK · [x] LAX · [x] ORD · [x] JNB · [x] DFW
+Done: [x] ATL · [x] JFK · [x] LAX · [x] ORD · [x] JNB · [x] DFW · [x] DEN · [x] LAS · [x] MCO · [x] CLT · [x] MIA
 
 Next, in order. The top US airports by passengers come first; international hubs follow.
 
 1. [x] DFW, Dallas/Fort Worth
-2. [ ] DEN, Denver
-3. [ ] LAS, Las Vegas Harry Reid
-4. [ ] MCO, Orlando
-5. [ ] CLT, Charlotte
-6. [ ] MIA, Miami
-7. [ ] SEA, Seattle-Tacoma
-8. [ ] SFO, San Francisco
-9. [ ] EWR, Newark Liberty
-10. [ ] PHX, Phoenix Sky Harbor
-11. [ ] IAH, Houston Bush
-12. [ ] BOS, Boston Logan
-13. [ ] FLL, Fort Lauderdale
-14. [ ] MSP, Minneapolis–St Paul
-15. [ ] LGA, New York LaGuardia
-16. [ ] DTW, Detroit
-17. [ ] PHL, Philadelphia
-18. [ ] SLC, Salt Lake City
-19. [ ] BWI, Baltimore/Washington
-20. [ ] DCA, Washington Reagan National
-21. [ ] IAD, Washington Dulles
-22. [ ] SAN, San Diego
-23. [ ] TPA, Tampa
-24. [ ] BNA, Nashville
-25. [ ] AUS, Austin
-26. [ ] MDW, Chicago Midway
-27. [ ] CPT, Cape Town (ACSA tariff PDF also covers CTIA)
-28. [ ] LHR, London Heathrow
-29. [ ] DXB, Dubai
-30. [ ] SIN, Singapore Changi
-31. [ ] CDG, Paris Charles de Gaulle
+2. [ ] SEA, Seattle-Tacoma
+3. [ ] SFO, San Francisco
+4. [ ] EWR, Newark Liberty
+5. [ ] PHX, Phoenix Sky Harbor
+6. [ ] IAH, Houston Bush
+7. [ ] BOS, Boston Logan
+8. [ ] FLL, Fort Lauderdale
+9. [ ] MSP, Minneapolis–St Paul
+10. [ ] LGA, New York LaGuardia
+11. [ ] DTW, Detroit
+12. [ ] PHL, Philadelphia
+13. [ ] SLC, Salt Lake City
+14. [ ] BWI, Baltimore/Washington
+15. [ ] DCA, Washington Reagan National
+16. [ ] IAD, Washington Dulles
+17. [ ] SAN, San Diego
+18. [ ] TPA, Tampa
+19. [ ] BNA, Nashville
+20. [ ] AUS, Austin
+21. [ ] MDW, Chicago Midway
+22. [ ] CPT, Cape Town (ACSA tariff PDF also covers CTIA)
+23. [ ] LHR, London Heathrow
+24. [ ] DXB, Dubai
+25. [ ] SIN, Singapore Changi
+26. [ ] CDG, Paris Charles de Gaulle
