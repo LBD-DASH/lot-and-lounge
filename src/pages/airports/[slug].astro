@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PartnerBox from '../../components/PartnerBox.astro';
+import Icon from '../../components/Icon.astro';
 import { absUrl, withBase, SITE_NAME } from '../../lib/url';
 
 export async function getStaticPaths() {
@@ -47,46 +48,73 @@ const jsonLd = [
 const toc = headings.filter((h) => h.depth === 2);
 ---
 <Base title={d.title} description={d.description} path={path} jsonLd={jsonLd} ogType="article">
-  <nav class="crumbs small" aria-label="Breadcrumb"><a href={withBase('')}>Airports</a> › {d.iata}</nav>
-  <article class="airport">
-    <h1>{d.airportName} ({d.iata}): parking costs &amp; lounges</h1>
-    <p class="meta small">
-      Last updated <time datetime={iso}>{pretty}</time> · Prices last checked {d.lastChecked} against official sources · {d.city}, {d.country}
-    </p>
-    <p class="lede">{d.summary}</p>
-    <div class="callout">
-      <strong>Cheapest official option we found:</strong> {d.cheapestOfficial.label}, <strong>{d.cheapestOfficial.price}</strong>
-      (<a href={d.cheapestOfficial.sourceUrl} rel="noopener" target="_blank">official source</a>, checked {d.lastChecked}).
-    </div>
-    {toc.length > 2 && (
-      <nav class="toc" aria-label="On this page">
-        <strong>On this page</strong>
-        <ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
-      </nav>
-    )}
-    <div class="prose"><Content /></div>
-
-    <PartnerBox keys={d.partners} airport={d.iata} />
-
-    <section aria-labelledby="faq-h">
-      <h2 id="faq-h">FAQ</h2>
-      {d.faq.map((f) => (
-        <details>
-          <summary>{f.q}</summary>
-          <p>{f.a}</p>
-        </details>
-      ))}
-    </section>
-
-    <section aria-labelledby="src-h">
-      <h2 id="src-h">Sources (checked {d.lastChecked})</h2>
-      <ul class="small">
-        {d.sources.map((s) => <li><a href={s.url} rel="noopener" target="_blank">{s.label}</a></li>)}
+  <header class="ap-hero">
+    <svg class="ap-arc" viewBox="0 0 600 300" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
+      <g stroke="#ffffff" stroke-opacity=".12" stroke-width="2">{[0, 1, 2, 3, 4, 5, 6].map((i) => <path d={`M${300 + i * 46} 300v-54`} />)}<path d="M300 246H600" /></g>
+      <path d="M330 270 C 360 160, 440 90, 530 62" fill="none" stroke="#ffffff" stroke-opacity=".45" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"/>
+      <path transform="translate(516 40) scale(1.5) rotate(-12 12 12)" d="M21 12c0-.8-.7-1.5-1.5-1.5H15L10 3H8l2.5 7.5H6L4.5 8.5H3l1 3.5-1 3.5h1.5L6 13.5h4.5L8 21h2l5-7.5h4.5c.8 0 1.5-.7 1.5-1.5z" fill="#ffffff" fill-opacity=".8"/>
+      <text x="500" y="230" text-anchor="end" font-family="Inter Variable,system-ui" font-weight="800" font-size="150" fill="#ffffff" fill-opacity=".05" letter-spacing="8">{d.iata}</text>
+    </svg>
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href={withBase('')}>Airports</a> <span aria-hidden="true">›</span> {d.iata}</nav>
+      <div class="ap-top">
+        <span class="ap-code" aria-hidden="true"><small>IATA</small><span>{d.iata}</span></span>
+        <h1>{d.airportName} ({d.iata}): parking costs &amp; lounges</h1>
+      </div>
+      <ul class="ap-meta">
+        <li><Icon name="calendar" size={15} /> Last updated <time datetime={iso}>{pretty}</time></li>
+        <li><Icon name="check" size={15} /> Prices last checked {d.lastChecked} against official sources</li>
+        <li><Icon name="pin" size={15} /> {d.city}, {d.country}</li>
       </ul>
-      <p class="muted small">
-        Rates and lounge details change often. If something here is out of date, the official source wins. Lounge access rules
-        are set by each operator; we don't recommend credit cards or financial products.
-      </p>
-    </section>
-  </article>
+      <p class="lede">{d.summary}</p>
+    </div>
+  </header>
+  <div class="bay-strip" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="ap-body">
+      <aside class="ap-side">
+        {toc.length > 2 && (
+          <nav class="toc" aria-label="On this page">
+            <strong><Icon name="layers" size={14} /> On this page</strong>
+            <ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+          </nav>
+        )}
+        <p class="side-note"><Icon name="shield" size={16} /> If something here is out of date, the official source wins.</p>
+      </aside>
+      <article class="airport ap-main">
+        <div class="ticket">
+          <span class="t-ico" aria-hidden="true">P</span>
+          <div class="t-main">
+            <div class="t-lbl">Cheapest official option we found</div>
+            {d.cheapestOfficial.label}, <span class="t-price">{d.cheapestOfficial.price}</span>
+            <div class="small muted">(<a href={d.cheapestOfficial.sourceUrl} rel="noopener" target="_blank">official source</a>, checked {d.lastChecked}).</div>
+          </div>
+        </div>
+        <div class="prose"><Content /></div>
+
+        <PartnerBox keys={d.partners} airport={d.iata} />
+
+        <section class="prose" aria-labelledby="faq-h">
+          <h2 id="faq-h">FAQ</h2>
+          {d.faq.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </section>
+
+        <section class="prose sources" aria-labelledby="src-h">
+          <h2 id="src-h">Sources (checked {d.lastChecked})</h2>
+          <ul class="small">
+            {d.sources.map((s) => <li><a href={s.url} rel="noopener" target="_blank"><Icon name="link" size={14} /><span>{s.label}</span></a></li>)}
+          </ul>
+          <p class="muted small">
+            Rates and lounge details change often. If something here is out of date, the official source wins. Lounge access rules
+            are set by each operator; we don't recommend credit cards or financial products.
+          </p>
+        </section>
+      </article>
+    </div>
+  </div>
 </Base>

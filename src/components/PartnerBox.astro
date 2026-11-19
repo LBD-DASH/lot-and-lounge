@@ -1,6 +1,7 @@
 ---
 import { getPartner, PARTNER_REL } from '../lib/partners';
 import { withBase } from '../lib/url';
+import Icon from './Icon.astro';
 interface Props { keys: string[]; airport: string }
 const { keys, airport } = Astro.props;
 const list = keys.map(getPartner);
@@ -16,11 +17,16 @@ const anyAffiliate = list.some((p) => p.affiliate);
         ? <> Some of these are affiliate links. <a href={withBase('affiliate-disclosure/')}>How we make money</a>.</>
         : <> We have no affiliate relationship with these sites today. <a href={withBase('affiliate-disclosure/')}>Disclosure</a>.</>}
     </p>
-    <ul>
+    <ul class="partner-list">
       {list.map((p) => (
-        <li>
-          <a href={p.url} rel={PARTNER_REL} target="_blank">{p.name}</a>
-          <span class="muted small"> · {p.blurb}</span>
+        <li class={`partner k-${p.kind}`}>
+          <span class="p-ico" aria-hidden="true"><Icon name={p.kind === 'lounge' ? 'lounge' : p.key === 'parksleepfly' ? 'bed' : 'car'} size={20} /></span>
+          <span>
+            <span class="p-kind">{p.kind === 'lounge' ? 'Lounge access' : 'Parking'}</span><br />
+            <a href={p.url} rel={PARTNER_REL} target="_blank">{p.name}</a>
+            <span class="p-blurb">{p.blurb}</span>
+          </span>
+          <span class="p-go" aria-hidden="true"><Icon name="link" size={18} /></span>
         </li>
       ))}
     </ul>

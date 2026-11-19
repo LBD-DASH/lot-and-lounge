@@ -1,6 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import HeroScene from '../components/HeroScene.astro';
+import { allPartners } from '../lib/partners';
 import { withBase, absUrl, SITE_NAME } from '../lib/url';
 
 const airports = (await getCollection('airports')).sort((a, b) => a.data.city.localeCompare(b.data.city));
@@ -20,27 +23,193 @@ const jsonLd = [
     })),
   },
 ];
+const countries = new Set(airports.map((a) => a.data.country)).size;
+const latest = airports.reduce((m, a) => (a.data.lastUpdated > m ? a.data.lastUpdated : m), airports[0].data.lastUpdated);
+const latestPretty = latest.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+const anyAffiliate = allPartners().some((p) => p.affiliate);
 ---
 <Base title={`${SITE_NAME}: ${title}`} description={description} path="" jsonLd={jsonLd}>
   <section class="hero">
-    <h1>Where to park, what it really costs, and which lounge you can get into</h1>
-    <p class="lede">
-      One page per airport. Official rates with the date we checked them, the cheaper park-and-ride or transit option, and
-      every lounge listed by terminal with how you get in.
-    </p>
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Airport parking · lounges · sleep &amp; park</span>
+        <h1>Where to park, what it <em>really</em> costs, and which lounge you can get into</h1>
+        <p class="lede">
+          One page per airport. Official rates with the date we checked them, the cheaper park-and-ride or transit option, and
+          every lounge listed by terminal with how you get in.
+        </p>
+        <form class="picker" action={withBase('#airports')} data-picker>
+          <label for="airport-pick">Choose an airport</label>
+          <div class="field">
+            <Icon name="plane" size={18} />
+            <select id="airport-pick" name="airport" required>
+              <option value="" disabled selected>Choose your airport…</option>
+              {airports.map((a) => <option value={withBase(`airports/${a.id}/`)}>{a.data.iata} · {a.data.city} ({a.data.country})</option>)}
+            </select>
+          </div>
+          <button class="btn btn-amber" type="submit">Compare <Icon name="arrow" size={18} /></button>
+        </form>
+        <ul class="hero-facts">
+          <li><Icon name="pin" size={16} /> {airports.length} airports · {countries} {countries === 1 ? 'country' : 'countries'}</li>
+          <li><Icon name="calendar" size={16} /> Prices checked {latestPretty}</li>
+          <li><Icon name="link" size={16} /> Every source linked</li>
+        </ul>
+      </div>
+      <div class="hero-art">
+        <HeroScene />
+        <div class="chip-float c1" aria-hidden="true"><span class="chip-ico"><Icon name="calc" size={18} /></span><span><strong>Real 7-day totals</strong>from official daily rates</span></div>
+        <div class="chip-float c2" aria-hidden="true"><span class="chip-ico"><Icon name="lounge" size={18} /></span><span><strong>Lounges by terminal</strong>and how you get in</span></div>
+      </div>
+    </div>
   </section>
-  <h2>Airports</h2>
-  <ul class="cards">
-    {airports.map((a) => (
-      <li class="card">
-        <a href={withBase(`airports/${a.id}/`)}>
-          <span class="iata">{a.data.iata}</span>
-          <span class="name">{a.data.airportName}</span>
-          <span class="muted small">{a.data.city}, {a.data.country}</span>
-          <span class="small">From <strong>{a.data.cheapestOfficial.price}</strong> · {a.data.cheapestOfficial.label}</span>
-        </a>
-      </li>
-    ))}
-  </ul>
-  <p class="muted small">New airports are added regularly. Prices are official published rates on the "last checked" date shown on each page.</p>
+  <div class="bay-strip" aria-hidden="true"></div>
+
+  <section class="section" aria-labelledby="cats-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">What each airport page covers</span>
+        <h2 id="cats-h">Three questions, answered before you leave home</h2>
+        <p>Where to leave the car, which lounge you can actually get into, and whether a hotel-and-parking package makes sense.</p>
+      </div>
+      <div class="cats">
+        <article class="cat">
+          <span class="cat-art" aria-hidden="true">
+            <svg viewBox="0 0 360 150" preserveAspectRatio="xMidYMid slice">
+              <g stroke="#fff" stroke-opacity=".5" stroke-width="2">{[40, 92, 144, 196, 248, 300].map((x) => <path d={`M${x} 40v62`} />)}<path d="M40 40H300" /></g>
+              <path d="M20 122H340" stroke="#f5a524" stroke-width="2" stroke-dasharray="12 10" stroke-opacity=".7"/>
+              <rect x="52" y="48" width="28" height="46" rx="8" fill="#e9eef6"/><rect x="56" y="56" width="20" height="8" rx="3" fill="#0c1c36" opacity=".7"/>
+              <rect x="156" y="48" width="28" height="46" rx="8" fill="#6aa2ff"/><rect x="160" y="56" width="20" height="8" rx="3" fill="#0c1c36" opacity=".7"/>
+              <rect x="260" y="48" width="28" height="46" rx="8" fill="#ff7a59"/><rect x="264" y="56" width="20" height="8" rx="3" fill="#0c1c36" opacity=".7"/>
+              <rect x="200" y="46" width="44" height="52" rx="8" fill="none" stroke="#f5a524" stroke-width="2" stroke-dasharray="4 4"/>
+              <text x="222" y="82" text-anchor="middle" font-family="Inter Variable,system-ui" font-weight="800" font-size="24" fill="#f5a524">P</text>
+            </svg>
+          </span>
+          <div class="cat-body">
+            <span class="cat-tag"><Icon name="car" size={16} /> Parking</span>
+            <h3>Official lots, real totals</h3>
+            <p>Every airport-run lot with its published rate and the date we checked it.</p>
+            <ul>
+              <li><Icon name="check" size={16} /> Real total cost for a 7-day trip, worked out from published rates</li>
+              <li><Icon name="check" size={16} /> The cheaper park-and-ride and public transport options</li>
+              <li><Icon name="check" size={16} /> Off-airport lots via comparison sites, where available (US and Canada)</li>
+            </ul>
+          </div>
+        </article>
+        <article class="cat">
+          <span class="cat-art" aria-hidden="true">
+            <svg viewBox="0 0 360 150" preserveAspectRatio="xMidYMid slice">
+              <rect x="60" y="22" width="240" height="90" rx="45" fill="#2a4f84" opacity=".55"/>
+              <path d="M90 92 C 140 60, 210 50, 280 42" stroke="#fff" stroke-opacity=".7" stroke-width="2" stroke-dasharray="2 7" fill="none" stroke-linecap="round"/>
+              <path transform="translate(266 26) scale(1.3) rotate(-8 12 12)" d="M21 12c0-.8-.7-1.5-1.5-1.5H15L10 3H8l2.5 7.5H6L4.5 8.5H3l1 3.5-1 3.5h1.5L6 13.5h4.5L8 21h2l5-7.5h4.5c.8 0 1.5-.7 1.5-1.5z" fill="#fff"/>
+              <path d="M180 22v90" stroke="#0c1c36" stroke-width="5"/>
+              <g transform="translate(118 84)"><rect x="0" y="16" width="124" height="26" rx="10" fill="#f5a524"/><rect x="10" y="0" width="104" height="24" rx="10" fill="#ffc35c"/><rect x="-8" y="10" width="18" height="32" rx="8" fill="#d98a0b"/><rect x="114" y="10" width="18" height="32" rx="8" fill="#d98a0b"/></g>
+            </svg>
+          </span>
+          <div class="cat-body">
+            <span class="cat-tag"><Icon name="lounge" size={16} /> Lounges</span>
+            <h3>Every lounge, terminal by terminal</h3>
+            <p>Lounge lists from the airport's directory and the operators' own pages.</p>
+            <ul>
+              <li><Icon name="check" size={16} /> Listed by terminal or concourse</li>
+              <li><Icon name="check" size={16} /> How you get in, as set by each operator</li>
+              <li><Icon name="check" size={16} /> Membership and pay-per-visit options linked</li>
+            </ul>
+          </div>
+        </article>
+        <article class="cat">
+          <span class="cat-art" aria-hidden="true">
+            <svg viewBox="0 0 360 150" preserveAspectRatio="xMidYMid slice">
+              <circle cx="292" cy="36" r="16" fill="#ffd27a"/><circle cx="300" cy="30" r="14" fill="#12284a"/>
+              <g fill="#fff" opacity=".6"><circle cx="60" cy="30" r="1.4"/><circle cx="120" cy="18" r="1"/><circle cx="230" cy="24" r="1.2"/></g>
+              <rect x="70" y="40" width="120" height="78" rx="6" fill="#2a4f84"/>
+              <g fill="#ffd27a">{[0, 1, 2, 3].map((c) => [0, 1, 2].map((r) => <rect x={84 + c * 26} y={52 + r * 20} width="14" height="10" rx="2" opacity={(c + r) % 3 === 0 ? 0.35 : 0.9} />))}</g>
+              <path d="M40 118H330" stroke="#fff" stroke-opacity=".5" stroke-width="2"/>
+              <g stroke="#fff" stroke-opacity=".45" stroke-width="2">{[206, 244, 282, 320].map((x) => <path d={`M${x} 118v-30`} />)}</g>
+              <rect x="213" y="92" width="24" height="24" rx="6" fill="#f5a524"/><rect x="251" y="92" width="24" height="24" rx="6" fill="#e9eef6"/>
+              <rect x="20" y="126" width="320" height="2" fill="#f5a524" opacity=".6"/>
+            </svg>
+          </span>
+          <div class="cat-body">
+            <span class="cat-tag"><Icon name="bed" size={16} /> Sleep &amp; park</span>
+            <h3>Hotel night plus parking</h3>
+            <p>For early departures: hotel + parking packages near North American airports, where we list them.</p>
+            <ul>
+              <li><Icon name="check" size={16} /> Shown alongside the official lots, never instead of them</li>
+              <li><Icon name="check" size={16} /> Check what's included: taxes, fees, shuttle frequency</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="airports" aria-labelledby="airports-h">
+    <div class="wrap">
+      <div class="grid-head">
+        <div class="section-head" style="margin-bottom:0">
+          <span class="eyebrow">Departures board</span>
+          <h2 id="airports-h">Airports</h2>
+          <p>Pick an airport for its official rates, real totals and lounges.</p>
+        </div>
+      </div>
+      <ul class="cards">
+        {airports.map((a) => (
+          <li class="card">
+            <a href={withBase(`airports/${a.id}/`)}>
+              <span class="iata">{a.data.iata}</span>
+              <span class="card-plane" aria-hidden="true"><Icon name="plane" size={18} /></span>
+              <span class="name">{a.data.airportName}</span>
+              <span class="place muted small"><Icon name="pin" size={14} /> {a.data.city}, {a.data.country}</span>
+              <span class="stub">
+                <span class="from">{!/^from\b/i.test(a.data.cheapestOfficial.price) && <span class="lbl">From</span>}<b>{a.data.cheapestOfficial.price}</b></span>
+                <span class="opt">{a.data.cheapestOfficial.label}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="muted small" style="margin-top:1.5rem">New airports are added regularly. Prices are official published rates on the "last checked" date shown on each page.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">How we compare</span>
+        <h2 id="how-h">Official sources, dated checks, plain arithmetic</h2>
+        <p>The official source always wins. If we can't verify something, we leave it out or tell you to check with the airport.</p>
+      </div>
+      <ol class="steps">
+        <li class="step"><span class="step-ico"><Icon name="shield" size={22} /></span><h3>Official rates only</h3><p>Parking rates come from the airport operator's own website or tariff sheet.</p></li>
+        <li class="step"><span class="step-ico"><Icon name="calendar" size={22} /></span><h3>Dated and sourced</h3><p>Each page shows the date we last checked and links every source.</p></li>
+        <li class="step"><span class="step-ico"><Icon name="calc" size={22} /></span><h3>Real total cost</h3><p>Our own arithmetic from published rates (for example 7 × the daily maximum). Your charge depends on entry and exit times.</p></li>
+        <li class="step"><span class="step-ico"><Icon name="lounge" size={22} /></span><h3>Lounges by terminal</h3><p>From the airport's official directory and the lounge operators' own pages, with how you get in.</p></li>
+      </ol>
+      <div class="promise">
+        <span class="pill"><Icon name="check" size={16} /> We never guess prices, hours or lounge names</span>
+        <span class="pill"><Icon name="check" size={16} /> Official airport parking always listed</span>
+        <span class="pill"><Icon name="check" size={16} /> No credit-card recommendations</span>
+        <span class="pill"><Icon name="check" size={16} /> Not affiliated with any airport or airline</span>
+      </div>
+      <div class="runway" aria-hidden="true"><Icon name="plane" size={22} /></div>
+      <div class="disclosure">
+        <Icon name="shield" size={22} />
+        <p class="small">
+          <strong>How we make money.</strong>
+          {anyAffiliate
+            ? ' Some partner links on this site are affiliate links: if you book, the partner may pay us a share at no extra cost to you.'
+            : ' We plan to earn affiliate commissions from partner links; none of our links are affiliate links yet.'}
+          {' '}Commissions never change the official rates we publish or the order of the cheapest options.
+          <a href={withBase('affiliate-disclosure/')}>Read the affiliate disclosure</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+  <script>
+    const f = document.querySelector<HTMLFormElement>('[data-picker]');
+    f?.addEventListener('submit', (e) => {
+      const s = f.querySelector('select');
+      if (s && s.value) { e.preventDefault(); window.location.href = s.value; }
+    });
+  </script>
 </Base>

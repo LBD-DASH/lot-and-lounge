@@ -1,5 +1,9 @@
 ---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/fraunces';
 import '../styles/global.css';
+import Logo from '../components/Logo.astro';
+import Icon from '../components/Icon.astro';
 import { withBase, absUrl, SITE_NAME } from '../lib/url';
 
 interface Props {
@@ -18,6 +22,7 @@ const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b1a2e" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -36,29 +41,35 @@ const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
     <a class="skip" href="#main">Skip to content</a>
     <header class="site-header">
       <div class="wrap">
-        <a class="brand" href={withBase('')}><span aria-hidden="true">🅿︎</span> Lot &amp; Lounge</a>
-        <nav aria-label="Main">
+        <a class="brand" href={withBase('')} aria-label="Lot & Lounge home"><Logo /><span>Lot <span class="amp">&amp;</span> Lounge</span></a>
+        <nav class="site-nav" aria-label="Main">
           <a href={withBase('')}>Airports</a>
+          <a class="hide-sm" href={withBase('affiliate-disclosure/')}>Disclosure</a>
           <a href={withBase('about/')}>About</a>
+          <a class="nav-cta hide-sm" href={withBase('#airports')}>Find your airport</a>
         </nav>
       </div>
     </header>
-    <main id="main" class="wrap">
+    <main id="main">
       <slot />
     </main>
     <footer class="site-footer">
+      <div class="bay-strip" aria-hidden="true"></div>
       <div class="wrap">
-        <p>
-          Lot &amp; Lounge compares official airport parking rates and lounge options, terminal by terminal. Prices come from
-          official sources on the date shown on each page and can change without notice, so always check before you travel.
-        </p>
-        <p>
-          <a href={withBase('affiliate-disclosure/')}>Affiliate disclosure</a> ·
-          <a href={withBase('privacy/')}>Privacy</a> ·
-          <a href={withBase('about/')}>About &amp; sourcing</a> ·
-          <a href={withBase('sitemap.xml')}>Sitemap</a>
-        </p>
-        <p class="muted">© {new Date().getFullYear()} Lot &amp; Lounge. Not affiliated with any airport or airline.</p>
+        <div>
+          <a class="brand" href={withBase('')}><Logo size={30} /><span>Lot <span class="amp">&amp;</span> Lounge</span></a>
+          <p>
+            Lot &amp; Lounge compares official airport parking rates and lounge options, terminal by terminal. Prices come from
+            official sources on the date shown on each page and can change without notice, so always check before you travel.
+          </p>
+        </div>
+        <ul class="foot-links">
+          <li><Icon name="shield" size={16} /><a href={withBase('affiliate-disclosure/')}>Affiliate disclosure</a></li>
+          <li><Icon name="check" size={16} /><a href={withBase('privacy/')}>Privacy</a></li>
+          <li><Icon name="layers" size={16} /><a href={withBase('about/')}>About &amp; sourcing</a></li>
+          <li><Icon name="pin" size={16} /><a href={withBase('sitemap.xml')}>Sitemap</a></li>
+        </ul>
+        <p class="foot-base">© {new Date().getFullYear()} Lot &amp; Lounge. Not affiliated with any airport or airline.</p>
       </div>
     </footer>
   </body>
