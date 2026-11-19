@@ -32,7 +32,7 @@ Collect these and save the URLs. You'll cite every one in `sources`.
 4. **Lounge hours:** include only if the operator's own page lists them clearly. When in doubt, omit them and tell readers to check the operator.
 5. **Total-cost tables are our arithmetic.** Say so, and show the formula (e.g. "7 × $20"). Use the published 24-hour maximum.
 6. **No credit-card recommendations.** You may state factual access rules ("eligible Amex card members"), but never suggest getting a card.
-7. **Partner links only via `src/data/partners.json`** (list keys in `partners:`). Never paste partner or affiliate URLs into Markdown. Never invent affiliate IDs. Links to airports, transit agencies and lounge operators are sources, not partners, and are fine inline.
+7. **Partner links only via `src/data/partners.json`** (list keys in `partners:`; each partner has a plain `url` and an empty `affiliateUrl` that is filled in only after a program approves us). Never paste partner or affiliate URLs into Markdown. Never invent affiliate IDs. Links to airports, transit agencies and lounge operators are sources, not partners, and are fine inline.
 8. Use dates in the form "19 Nov 2026". Use local currency with its symbol (`$`, `R`, `£`, `€`, `AED`).
 
 ## 3. Create the file
