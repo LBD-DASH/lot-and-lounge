@@ -2,13 +2,16 @@
 import { getPartner, PARTNER_REL } from '../lib/partners';
 import { withBase } from '../lib/url';
 import Icon from './Icon.astro';
+import FeaturedApp from './FeaturedApp.astro';
 interface Props { keys: string[]; airport: string }
 const { keys, airport } = Astro.props;
-const list = keys.map(getPartner);
+const list = keys.map(getPartner).filter((p) => p.kind !== 'app');
 const anyAffiliate = list.some((p) => p.affiliate);
 ---
-{list.length > 0 && (
-  <aside class="partners" aria-labelledby="partners-h">
+{(
+  <aside class="partners" aria-label="Partners">
+    <FeaturedApp />
+    {list.length > 0 && <>
     <h2 id="partners-h">Compare and book beyond the official lots</h2>
     <p class="muted small">
       These third-party sites can show off-airport lots and lounge passes for {airport}. Check what's included (taxes, fees,
@@ -30,5 +33,6 @@ const anyAffiliate = list.some((p) => p.affiliate);
         </li>
       ))}
     </ul>
+    </>}
   </aside>
 )}

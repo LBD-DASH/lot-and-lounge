@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+import FeaturedApp from '../components/FeaturedApp.astro';
 import HeroScene from '../components/HeroScene.astro';
 import { allPartners } from '../lib/partners';
 import { withBase, absUrl, SITE_NAME } from '../lib/url';
@@ -171,6 +172,8 @@ const anyAffiliate = allPartners().some((p) => p.affiliate);
       <p class="muted small" style="margin-top:1.5rem">New airports are added regularly. Prices are official published rates on the "last checked" date shown on each page.</p>
     </div>
   </section>
+
+  <FeaturedApp variant="band" />
 
   <section class="section" aria-labelledby="how-h">
     <div class="wrap">

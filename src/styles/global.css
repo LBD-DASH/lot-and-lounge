@@ -300,3 +300,41 @@ details p{margin:0;padding:0 1.1rem 1rem;color:#33415c}
 @media(max-width:40rem){.picker .btn{flex:1 1 100%}}
 @media(max-width:48rem){.ap-hero .ap-arc{width:100%;height:auto;top:auto;bottom:0;right:0;opacity:.35}}
 @media(min-width:64rem){.ticket{margin-top:-3.2rem}}
+
+/* featured app (Voyaij) */
+.fa-badge{display:inline-flex;align-items:center;gap:.4rem;background:var(--amber-500);color:var(--ink-900);font-size:var(--fs-xs);font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .8rem .3rem .6rem;border-radius:6px;position:relative;-webkit-mask:radial-gradient(circle 4px at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 4px at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat;mask:radial-gradient(circle 4px at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 4px at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat}
+.gp-btn{display:inline-flex;align-items:center;gap:.6rem;background:#000;color:#fff;text-decoration:none;border:1px solid #a6a6a6;border-radius:10px;padding:.5rem 1rem .5rem .8rem;line-height:1.1}
+.gp-btn:hover{color:#fff;background:#111;border-color:#fff}
+.gp-btn small{display:block;font-size:.62rem;letter-spacing:.04em;opacity:.85}.gp-btn b{font-size:1.05rem;font-weight:600}
+.fa-start{display:inline-flex;align-items:center;gap:.5rem;background:var(--amber-500);color:var(--ink-900);font-weight:700;text-decoration:none;border-radius:10px;padding:.8rem 1.2rem;box-shadow:0 8px 20px -8px rgba(245,165,36,.7)}
+.fa-start:hover{color:var(--ink-900);background:#ffb83d}
+.fa-actions{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+.fa-card{background:linear-gradient(135deg,var(--ink-900),#12294a);color:#fff;border-radius:var(--r-lg);padding:var(--s-5);margin:var(--s-4) 0 var(--s-5);display:grid;gap:var(--s-4);position:relative;overflow:hidden}
+.fa-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:repeating-linear-gradient(90deg,var(--amber-500) 0 14px,transparent 14px 22px)}
+.fa-card .fa-badge{justify-self:start}
+.fa-body{display:flex;gap:1rem;align-items:center}
+.fa-logo{border-radius:14px;flex:none;box-shadow:0 0 0 2px rgba(255,255,255,.15)}
+.fa-card h3{margin:0 0 .25rem;color:#fff;font-size:var(--fs-xl);border:0}.fa-card h3::before{display:none}
+.fa-card p,.fa-band p{margin:0;color:#dbe4f1}
+@media(min-width:48rem){.fa-card{grid-template-columns:1fr auto;align-items:center}.fa-card .fa-badge{grid-column:1/-1}}
+.fa-band{position:relative;background:linear-gradient(120deg,#0b1a2e,#143560);color:#fff;overflow:hidden;padding:var(--s-6) 0}
+.fa-path{position:absolute;inset:0;width:100%;height:100%}
+.fa-band-in{position:relative;display:flex;gap:var(--s-6);align-items:center}
+.fa-phone{position:relative;flex:none;width:7rem;height:11rem;border:3px solid #dbe4f1;border-radius:22px;display:grid;place-items:center;background:#06101f}
+.fa-phone img{border-radius:16px}
+.fa-notch{position:absolute;top:7px;width:30px;height:5px;border-radius:3px;background:#dbe4f1}
+.fa-plane{position:absolute;right:-1.1rem;top:1.2rem;color:var(--amber-500);transform:rotate(-20deg)}
+.fa-band h2{color:#fff;margin:.5rem 0 .3rem;font-size:var(--fs-2xl)}
+.fa-band .fa-actions{margin-top:var(--s-4)}
+.fa-demo{color:#fff;text-decoration-color:var(--amber-500)}.fa-demo:hover{color:var(--amber-500)}
+.fa-partner{margin-top:var(--s-3)!important;font-size:var(--fs-xs)}.fa-partner a{color:#dbe4f1;text-transform:uppercase;letter-spacing:.12em;font-weight:700}
+@media(max-width:40rem){.fa-band-in{flex-direction:column;align-items:flex-start}.fa-phone{width:5.5rem;height:8.5rem}}
+
+/* app screenshots in phone frames */
+.fa-thumb{flex:none;width:3.6rem;height:5.4rem;border:2px solid #dbe4f1;border-radius:10px;overflow:hidden;background:#06101f;box-shadow:0 0 0 2px rgba(255,255,255,.08)}
+.fa-thumb img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;max-width:none}
+.fa-phone{width:9.5rem;height:16.2rem;display:block;overflow:hidden;border-radius:26px;border-width:4px;padding:0}
+.fa-phone img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:0;display:block}
+.fa-notch{z-index:2;top:6px;left:50%;transform:translateX(-50%);background:#06101f;width:38px;height:7px;border-radius:4px}
+.fa-plane{z-index:2;right:.6rem;top:auto;bottom:.6rem}
+@media(max-width:40rem){.fa-phone{width:8rem;height:13.6rem}}
