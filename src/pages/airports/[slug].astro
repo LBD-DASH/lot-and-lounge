@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import PartnerBox from '../../components/PartnerBox.astro';
 import Icon from '../../components/Icon.astro';
 import { absUrl, withBase, SITE_NAME } from '../../lib/url';
+import { regionOf, regionSlug } from '../../lib/regions';
 
 export async function getStaticPaths() {
   const airports = await getCollection('airports');
@@ -46,6 +47,7 @@ const jsonLd = [
   },
 ];
 const toc = headings.filter((h) => h.depth === 2);
+const region = regionOf(d.country);
 ---
 <Base title={d.title} description={d.description} path={path} jsonLd={jsonLd} ogType="article">
   <header class="ap-hero">
@@ -56,7 +58,7 @@ const toc = headings.filter((h) => h.depth === 2);
       <text x="500" y="230" text-anchor="end" font-family="Inter Variable,system-ui" font-weight="800" font-size="150" fill="#ffffff" fill-opacity=".05" letter-spacing="8">{d.iata}</text>
     </svg>
     <div class="wrap">
-      <nav class="crumbs" aria-label="Breadcrumb"><a href={withBase('')}>Airports</a> <span aria-hidden="true">›</span> {d.iata}</nav>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href={withBase('')}>Airports</a> <span aria-hidden="true">›</span> <a href={withBase(`#${regionSlug(region)}`)}>{region}</a> <span aria-hidden="true">›</span> {d.iata}</nav>
       <div class="ap-top">
         <span class="ap-code" aria-hidden="true"><small>IATA</small><span>{d.iata}</span></span>
         <h1>{d.airportName} ({d.iata}): parking costs &amp; lounges</h1>

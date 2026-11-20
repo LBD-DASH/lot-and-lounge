@@ -6,6 +6,7 @@ import FeaturedApp from '../components/FeaturedApp.astro';
 import HeroScene from '../components/HeroScene.astro';
 import { allPartners } from '../lib/partners';
 import { withBase, absUrl, SITE_NAME } from '../lib/url';
+import { groupByRegion } from '../lib/regions';
 
 const airports = (await getCollection('airports')).sort((a, b) => a.data.city.localeCompare(b.data.city));
 const title = 'Airport Parking Costs & Lounge Access, Airport by Airport';
@@ -24,6 +25,7 @@ const jsonLd = [
     })),
   },
 ];
+const regions = groupByRegion(airports, (a) => a.data.country);
 const countries = new Set(airports.map((a) => a.data.country)).size;
 const latest = airports.reduce((m, a) => (a.data.lastUpdated > m ? a.data.lastUpdated : m), airports[0].data.lastUpdated);
 const latestPretty = latest.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
@@ -45,7 +47,11 @@ const anyAffiliate = allPartners().some((p) => p.affiliate);
             <Icon name="plane" size={18} />
             <select id="airport-pick" name="airport" required>
               <option value="" disabled selected>Choose your airport…</option>
-              {airports.map((a) => <option value={withBase(`airports/${a.id}/`)}>{a.data.iata} · {a.data.city} ({a.data.country})</option>)}
+              {regions.map((g) => (
+                <optgroup label={g.region}>
+                  {g.items.map((a) => <option value={withBase(`airports/${a.id}/`)}>{a.data.iata} · {a.data.city} ({a.data.country})</option>)}
+                </optgroup>
+              ))}
             </select>
           </div>
           <button class="btn btn-amber" type="submit">Compare <Icon name="arrow" size={18} /></button>
@@ -152,23 +158,36 @@ const anyAffiliate = allPartners().some((p) => p.affiliate);
           <h2 id="airports-h">Airports</h2>
           <p>Pick an airport for its official rates, real totals and lounges.</p>
         </div>
+        {regions.length > 1 && (
+          <nav class="region-nav" aria-label="Jump to a region">
+            {regions.map((g) => <a class="pill" href={`#${g.slug}`}>{g.region} <span class="muted">{g.items.length}</span></a>)}
+          </nav>
+        )}
       </div>
-      <ul class="cards">
-        {airports.map((a) => (
-          <li class="card">
-            <a href={withBase(`airports/${a.id}/`)}>
-              <span class="iata">{a.data.iata}</span>
-              <span class="card-plane" aria-hidden="true"><Icon name="plane" size={18} /></span>
-              <span class="name">{a.data.airportName}</span>
-              <span class="place muted small"><Icon name="pin" size={14} /> {a.data.city}, {a.data.country}</span>
-              <span class="stub">
-                <span class="from">{!/^from\b/i.test(a.data.cheapestOfficial.price) && <span class="lbl">From</span>}<b>{a.data.cheapestOfficial.price}</b></span>
-                <span class="opt">{a.data.cheapestOfficial.label}</span>
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
+      {regions.map((g) => (
+        <section class="region" id={g.slug} aria-labelledby={`r-${g.slug}`}>
+          <h3 class="region-h" id={`r-${g.slug}`}>
+            <span class="region-name"><Icon name="plane" size={16} /> {g.region}</span>
+            <span class="region-count">{g.items.length} {g.items.length === 1 ? 'airport' : 'airports'}</span>
+          </h3>
+          <ul class="cards">
+            {g.items.map((a) => (
+              <li class="card">
+                <a href={withBase(`airports/${a.id}/`)}>
+                  <span class="iata">{a.data.iata}</span>
+                  <span class="card-plane" aria-hidden="true"><Icon name="plane" size={18} /></span>
+                  <span class="name">{a.data.airportName}</span>
+                  <span class="place muted small"><Icon name="pin" size={14} /> {a.data.city}, {a.data.country}</span>
+                  <span class="stub">
+                    <span class="from">{!/^from\b/i.test(a.data.cheapestOfficial.price) && <span class="lbl">From</span>}<b>{a.data.cheapestOfficial.price}</b></span>
+                    <span class="opt">{a.data.cheapestOfficial.label}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
       <p class="muted small" style="margin-top:1.5rem">New airports are added regularly. Prices are official published rates on the "last checked" date shown on each page.</p>
     </div>
   </section>
