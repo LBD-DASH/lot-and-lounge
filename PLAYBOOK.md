@@ -127,13 +127,13 @@ Once a week, re-check the oldest `lastChecked` page against its sources, update 
 
 ## Priority list
 
-Done: [x] ATL · [x] JFK · [x] LAX · [x] ORD · [x] JNB · [x] DFW · [x] DEN · [x] LAS · [x] MCO · [x] CLT · [x] MIA · [x] SEA
+Done: [x] ATL · [x] JFK · [x] LAX · [x] ORD · [x] JNB · [x] DFW · [x] DEN · [x] LAS · [x] MCO · [x] CLT · [x] MIA · [x] SEA · [x] SFO
 
 Next, in order. The top US airports by passengers come first; international hubs follow.
 
 1. [x] DFW, Dallas/Fort Worth
 2. [x] SEA, Seattle-Tacoma
-3. [ ] SFO, San Francisco
+3. [x] SFO, San Francisco
 4. [ ] EWR, Newark Liberty
 5. [ ] PHX, Phoenix Sky Harbor
 6. [ ] IAH, Houston Bush
