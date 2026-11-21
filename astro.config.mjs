@@ -1,6 +1,8 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
+import sitemap from '@astrojs/sitemap';
+
 // Change these two env vars (or the defaults) when moving to a custom domain:
 //   SITE_URL=https://www.example.com BASE_PATH=/ npm run build
 const site = process.env.SITE_URL || 'https://lbd-dash.github.io';
@@ -12,4 +14,5 @@ export default defineConfig({
   trailingSlash: 'always',
   build: { format: 'directory' },
   compressHTML: true,
+  integrations: [sitemap()],
 });
