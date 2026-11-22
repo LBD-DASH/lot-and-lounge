@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+import { withBase } from '../lib/url';
+import { TOPIC_ICON, readMins } from '../lib/guides';
+interface Props { guide: CollectionEntry<'guides'>; compact?: boolean }
+const { guide, compact = false } = Astro.props;
+const d = guide.data;
+const codes = d.airports.map((a) => a.toUpperCase());
+---
+<li class={`gcard t-${d.topic.toLowerCase().replace(/[^a-z]+/g, '-')}${compact ? ' compact' : ''}`}>
+  <a href={withBase(`guides/${guide.id}/`)}>
+    <span class="g-topic"><Icon name={TOPIC_ICON[d.topic] ?? 'book'} size={15} /> {d.topic}</span>
+    <span class="g-title">{d.title}</span>
+    {!compact && <span class="g-desc">{d.description}</span>}
+    <span class="g-foot">
+      <span class="g-codes" aria-label="Airports covered">
+        {codes.slice(0, 4).map((c) => <span class="g-code">{c}</span>)}
+        {codes.length > 4 && <span class="g-code more">+{codes.length - 4}</span>}
+      </span>
+      <span class="g-read">{readMins(guide)} min read <Icon name="arrow" size={15} /></span>
+    </span>
+  </a>
+</li>
