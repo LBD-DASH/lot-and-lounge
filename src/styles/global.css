@@ -370,3 +370,16 @@ details p{margin:0;padding:0 1.1rem 1rem;color:#33415c}
   .fa-band .fa-actions{justify-content:flex-start}
   .fa-band h3.fa-name{font-size:var(--fs-2xl)}
 }
+
+/* car hire (Discover Cars) */
+.carhire{position:relative;display:grid;grid-template-columns:auto 1fr;gap:1rem 1.1rem;align-items:start;background:linear-gradient(135deg,var(--ink-900),var(--ink-800));color:#c3cede;border-radius:var(--r-xl);padding:var(--s-5);margin:var(--s-7) 0;box-shadow:var(--sh-3);overflow:hidden}
+.carhire::after{content:"";position:absolute;inset:auto 0 0 0;height:6px;background:repeating-linear-gradient(90deg,var(--amber-500) 0 26px,transparent 26px 52px);opacity:.85}
+.carhire .ch-ico{display:grid;place-items:center;width:3rem;height:3rem;border-radius:14px;background:var(--amber-500);color:var(--ink-900)}
+.carhire .ch-kind{font-size:var(--fs-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--amber-500);font-weight:700}
+.carhire h2{color:#fff;margin:.2rem 0 .5rem;border:0;padding:0}
+.carhire h2::before{display:none}
+.carhire p{margin:0 0 .6rem;max-width:40rem}
+.carhire .ch-note{font-size:var(--fs-xs);color:#9fb0c8}
+.carhire .ch-note a{color:#d7e0ee}
+.carhire .ch-cta{grid-column:1 / -1;justify-self:start;margin-bottom:.4rem}
+@media(min-width:48rem){.carhire{grid-template-columns:auto 1fr auto;align-items:center}.carhire .ch-ico{align-self:start;margin-top:.3rem}.carhire .ch-cta{grid-column:auto;justify-self:end;margin:0}}

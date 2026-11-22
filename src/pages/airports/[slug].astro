@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PartnerBox from '../../components/PartnerBox.astro';
+import CarHire from '../../components/CarHire.astro';
 import Icon from '../../components/Icon.astro';
 import { absUrl, withBase, SITE_NAME } from '../../lib/url';
 import { regionOf, regionSlug } from '../../lib/regions';
@@ -95,6 +96,8 @@ const region = regionOf(d.country);
         <div class="prose"><Content /></div>
 
         <PartnerBox keys={d.partners} airport={d.iata} />
+
+        <CarHire airport={d.iata} airportName={d.airportName} city={d.city} />
 
         <section class="prose" aria-labelledby="faq-h">
           <h2 id="faq-h">FAQ</h2>

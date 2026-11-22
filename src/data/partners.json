@@ -36,5 +36,12 @@
     "playUrl": "https://play.google.com/store/apps/details?id=com.myvoyaij.app",
     "demoUrl": "https://myvoyaij.com/demo",
     "affiliateUrl": ""
+  },
+  "discover-cars": {
+    "name": "Discover Cars",
+    "kind": "carhire",
+    "blurb": "Compare car hire from major suppliers in one search.",
+    "url": "https://www.discovercars.com/",
+    "affiliateUrl": "https://www.discovercars.com/?a_aid=lotandlounge"
   }
 }

@@ -1,0 +1,22 @@
+---
+import { getPartner, PARTNER_REL } from '../lib/partners';
+import { withBase } from '../lib/url';
+import Icon from './Icon.astro';
+interface Props { airport: string; airportName: string; city: string }
+const { airport, airportName, city } = Astro.props;
+const p = getPartner('discover-cars');
+---
+<section class="carhire" aria-labelledby="carhire-h">
+  <span class="ch-ico" aria-hidden="true"><Icon name="car" size={26} /></span>
+  <div class="ch-copy">
+    <span class="ch-kind">Car hire</span>
+    <h2 id="carhire-h">Car hire at {airport}</h2>
+    <p>Not parking at all? Compare car hire from major suppliers at {airportName} for your trip in {city}. Check the fuel policy, insurance excess and deposit before you book.</p>
+    <p class="ch-note">
+      {p.affiliate
+        ? <>Affiliate link: we may earn a commission if you book, at no extra cost to you. <a href={withBase('affiliate-disclosure/')}>How we make money</a>.</>
+        : <>We have no affiliate relationship with this site today. <a href={withBase('affiliate-disclosure/')}>Disclosure</a>.</>}
+    </p>
+  </div>
+  <a class="btn btn-amber ch-cta" href={p.url} rel={PARTNER_REL} target="_blank">Compare car hire on {p.name} <Icon name="arrow" size={18} /></a>
+</section>
