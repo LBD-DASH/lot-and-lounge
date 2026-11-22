@@ -37,12 +37,32 @@ const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
     <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
     <link rel="sitemap" href={withBase('sitemap.xml')} />
     {jsonLd.map((obj) => <script type="application/ld+json" set:html={JSON.stringify(obj)} />)}
+    <script is:inline nowprocket data-noptimize="1" data-cfasync="false" data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1" data-cmp-ab="2">
+      (function () {
+          var script = document.createElement("script");
+          script.async = 1;
+          script.setAttribute("data-cmp-ab","2");
+          script.src = 'https://tpembars.com/NjA0OTU3.js?t=604957';
+          document.head.appendChild(script);
+      })();
+    </script>
+    <script is:inline>
+    (function (s, t, a, y, twenty, two) {
+    s.Stay22 = s.Stay22 || {};
+    s.Stay22.params = { lmaID: '6b02941047bad80e99ad379b' };
+    twenty = t.createElement(a);
+    two = t.getElementsByTagName(a)[0];
+    twenty.async = 1;
+    twenty.src = y;
+    two.parentNode.insertBefore(twenty, two);
+    })(window, document, 'script', 'https://lma.stay22.com/letmeallez.js');
+    </script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
     <header class="site-header">
       <div class="wrap">
-        <a class="brand" href={withBase('')} aria-label="Lot & Lounge home"><Logo /><span>Lot <span class="amp">&amp;</span> Lounge</span></a>
+        <a class="brand" href={withBase('')} aria-label="Lot & Lounge home"><Logo /><span>Lot <span class="amp">&</span> Lounge</span></a>
         <nav class="site-nav" aria-label="Main">
           <a href={withBase('')}>Airports</a>
           <a class="hide-sm" href={withBase('affiliate-disclosure/')}>Disclosure</a>
@@ -58,19 +78,19 @@ const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
       <div class="bay-strip" aria-hidden="true"></div>
       <div class="wrap">
         <div>
-          <a class="brand" href={withBase('')}><Logo size={30} /><span>Lot <span class="amp">&amp;</span> Lounge</span></a>
+          <a class="brand" href={withBase('')}><Logo size={30} /><span>Lot <span class="amp">&</span> Lounge</span></a>
           <p>
-            Lot &amp; Lounge compares official airport parking rates and lounge options, terminal by terminal. Prices come from
+            Lot & Lounge compares official airport parking rates and lounge options, terminal by terminal. Prices come from
             official sources on the date shown on each page and can change without notice, so always check before you travel.
           </p>
         </div>
         <ul class="foot-links">
           <li><Icon name="shield" size={16} /><a href={withBase('affiliate-disclosure/')}>Affiliate disclosure</a></li>
           <li><Icon name="check" size={16} /><a href={withBase('privacy/')}>Privacy</a></li>
-          <li><Icon name="layers" size={16} /><a href={withBase('about/')}>About &amp; sourcing</a></li>
+          <li><Icon name="layers" size={16} /><a href={withBase('about/')}>About & sourcing</a></li>
           <li><Icon name="pin" size={16} /><a href={withBase('sitemap.xml')}>Sitemap</a></li>
         </ul>
-        <p class="foot-base">© {new Date().getFullYear()} Lot &amp; Lounge. Not affiliated with any airport or airline.</p>
+        <p class="foot-base">© {new Date().getFullYear()} Lot & Lounge. Not affiliated with any airport or airline.</p>
       </div>
     </footer>
   </body>
