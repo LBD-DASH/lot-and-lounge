@@ -1,0 +1,141 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import GuideCard from '../../components/GuideCard.astro';
+import ChecklistCta from '../../components/ChecklistCta.astro';
+import { absUrl, withBase, SITE_NAME } from '../../lib/url';
+import { TOPIC_ICON, topicSlug, readMins, sortGuides } from '../../lib/guides';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+const { Content, headings } = await render(entry);
+const path = `guides/${entry.id}/`;
+const url = absUrl(path, Astro.site);
+const iso = d.lastUpdated.toISOString().slice(0, 10);
+const pretty = d.lastUpdated.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+const toc = headings.filter((h) => h.depth === 2);
+const mins = readMins(entry);
+
+// Airports this guide draws its facts from: shown in the sidebar and as sources.
+const airports = (await Promise.all(d.airports.map((id) => getEntry('airports', id)))).filter(Boolean) as NonNullable<Awaited<ReturnType<typeof getEntry<'airports', string>>>>[];
+
+// Related guides: same topic or a shared airport, excluding this one.
+const all = await getCollection('guides');
+const related = sortGuides(all.filter((g) => g.id !== entry.id))
+  .map((g) => ({ g, score: (g.data.topic === d.topic ? 2 : 0) + g.data.airports.filter((a) => d.airports.includes(a)).length }))
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 3)
+  .map((x) => x.g);
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: d.title,
+    description: d.description,
+    dateModified: iso,
+    datePublished: iso,
+    mainEntityOfPage: url,
+    author: { '@type': 'Organization', name: SITE_NAME },
+    publisher: { '@type': 'Organization', name: SITE_NAME },
+    about: airports.map((a) => ({ '@type': 'Airport', name: a.data.airportName, iataCode: a.data.iata })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Guides', item: absUrl('guides/', Astro.site) },
+      { '@type': 'ListItem', position: 2, name: d.title, item: url },
+    ],
+  },
+];
+---
+<Base title={d.title} description={d.description} path={path} jsonLd={jsonLd} ogType="article">
+  <header class="ap-hero g-hero">
+    <svg class="ap-arc" viewBox="0 0 600 300" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
+      <g stroke="#ffffff" stroke-opacity=".12" stroke-width="2">{[0, 1, 2, 3, 4, 5, 6].map((i) => <path d={`M${300 + i * 46} 300v-54`} />)}<path d="M300 246H600" /></g>
+      <path d="M330 270 C 360 160, 440 90, 530 62" fill="none" stroke="#ffffff" stroke-opacity=".45" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"/>
+      <path transform="translate(516 40) scale(1.5) rotate(-12 12 12)" d="M21 12c0-.8-.7-1.5-1.5-1.5H15L10 3H8l2.5 7.5H6L4.5 8.5H3l1 3.5-1 3.5h1.5L6 13.5h4.5L8 21h2l5-7.5h4.5c.8 0 1.5-.7 1.5-1.5z" fill="#ffffff" fill-opacity=".8"/>
+    </svg>
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href={withBase('guides/')}>Guides</a> <span aria-hidden="true">›</span> <a href={withBase(`guides/#${topicSlug(d.topic)}`)}>{d.topic}</a></nav>
+      <div class="ap-top">
+        <span class="ap-code g-badge" aria-hidden="true"><small>Guide</small><span><Icon name={TOPIC_ICON[d.topic] ?? 'book'} size={34} /></span></span>
+        <h1>{d.title}</h1>
+      </div>
+      <ul class="ap-meta">
+        <li><Icon name="calendar" size={15} /> Updated <time datetime={iso}>{pretty}</time></li>
+        <li><Icon name="check" size={15} /> Facts checked {d.lastChecked} against official sources</li>
+        <li><Icon name="book" size={15} /> {mins} min read</li>
+      </ul>
+      <p class="lede">{d.description}</p>
+    </div>
+  </header>
+  <div class="bay-strip" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="ap-body">
+      <aside class="ap-side">
+        {toc.length > 2 && (
+          <nav class="toc" aria-label="On this page">
+            <strong><Icon name="layers" size={14} /> On this page</strong>
+            <ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+          </nav>
+        )}
+        {airports.length > 0 && (
+          <nav class="g-airports" aria-label="Airport pages used in this guide">
+            <strong><Icon name="pin" size={14} /> Full airport pages</strong>
+            <ul>
+              {airports.map((a) => (
+                <li><a href={withBase(`airports/${a.id}/`)}><span class="g-code">{a.data.iata}</span><span>{a.data.city}<span class="small muted">From {a.data.cheapestOfficial.price.replace(/^from\s+/i, '')}</span></span></a></li>
+              ))}
+            </ul>
+          </nav>
+        )}
+        <ChecklistCta variant="side" />
+      </aside>
+
+      <article class="airport ap-main">
+        <div class="ticket g-answer">
+          <span class="t-ico" aria-hidden="true"><Icon name="check" size={26} /></span>
+          <div class="t-main">
+            <div class="t-lbl">Quick answer</div>
+            {d.answer}
+          </div>
+        </div>
+        <p class="g-disclose small">
+          <Icon name="shield" size={16} />
+          <span>Some links on this site may be affiliate links: if you book through a partner, we may earn a commission at no extra cost to you. It never changes the official rates we publish. <a href={withBase('affiliate-disclosure/')}>Affiliate disclosure</a>.</span>
+        </p>
+
+        <div class="prose"><Content /></div>
+
+        <section class="prose sources" aria-labelledby="src-h">
+          <h2 id="src-h">Sources (checked {d.lastChecked})</h2>
+          <ul class="small">
+            {airports.map((a) => <li><a href={withBase(`airports/${a.id}/`)}><Icon name="pin" size={14} /><span>Lot &amp; Lounge {a.data.iata} page, with every official source linked (checked {a.data.lastChecked})</span></a></li>)}
+            {d.sources.map((s) => <li><a href={s.url} rel="noopener" target="_blank"><Icon name="link" size={14} /><span>{s.label}</span></a></li>)}
+          </ul>
+          <p class="muted small">
+            Rates, lounge lists and access rules change often. If something here is out of date, the official source wins. We
+            don't recommend credit cards or financial products.
+          </p>
+        </section>
+
+        {related.length > 0 && (
+          <section class="g-related" aria-labelledby="rel-h">
+            <h2 id="rel-h">Keep reading</h2>
+            <ul class="gcards">{related.map((g) => <GuideCard guide={g} compact />)}</ul>
+          </section>
+        )}
+      </article>
+    </div>
+    <ChecklistCta />
+  </div>
+</Base>

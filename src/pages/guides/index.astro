@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import Icon from '../../components/Icon.astro';
+import GuideCard from '../../components/GuideCard.astro';
+import ChecklistCta from '../../components/ChecklistCta.astro';
+import { absUrl, SITE_NAME } from '../../lib/url';
+import { TOPIC_ORDER, TOPIC_ICON, topicSlug, sortGuides } from '../../lib/guides';
+
+const guides = sortGuides(await getCollection('guides'));
+const groups = TOPIC_ORDER.map((t) => ({ topic: t, items: guides.filter((g) => g.data.topic === t) })).filter((g) => g.items.length);
+const blurb: Record<string, string> = {
+  Parking: 'Which official lot is cheapest, what a week really costs, and when booking ahead actually saves money.',
+  Lounges: 'Which lounges you can get into without status, and what Priority Pass really lists at your airport.',
+  'Budget travel': 'Park or take the train, and other ways to spend less between your front door and the gate.',
+};
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: `${SITE_NAME} guides`,
+    url: absUrl('guides/', Astro.site),
+    hasPart: guides.map((g) => ({ '@type': 'Article', headline: g.data.title, url: absUrl(`guides/${g.id}/`, Astro.site) })),
+  },
+];
+---
+<Base title="Airport parking and lounge guides" description="Short, sourced guides to the cheapest airport parking, lounge access without status, Priority Pass by airport, and park-or-train maths." path="guides/" jsonLd={jsonLd}>
+  <PageHead title="Guides: park smarter, get into the lounge" eyebrow="Guides" />
+  <div class="wrap">
+    <div class="g-intro">
+      <p class="lede">
+        Every guide is built from the same dated, official sources as our airport pages. No guessed prices, no invented lounges,
+        and no credit-card pitches.
+      </p>
+      <nav class="region-nav" aria-label="Guide topics">
+        {groups.map((g) => (
+          <a class="pill" href={`#${topicSlug(g.topic)}`}><Icon name={TOPIC_ICON[g.topic]} size={16} /> {g.topic} <span class="muted">{g.items.length}</span></a>
+        ))}
+      </nav>
+    </div>
+    {groups.map((g) => (
+      <section class="region g-topic-sec" id={topicSlug(g.topic)} aria-labelledby={`${topicSlug(g.topic)}-h`}>
+        <h2 class="region-h" id={`${topicSlug(g.topic)}-h`}>
+          <span class="region-name"><Icon name={TOPIC_ICON[g.topic]} size={16} /> {g.topic}</span>
+          <span class="region-count">{g.items.length} {g.items.length === 1 ? 'guide' : 'guides'}</span>
+        </h2>
+        <p class="muted g-topic-blurb">{blurb[g.topic]}</p>
+        <ul class="gcards">{g.items.map((guide) => <GuideCard guide={guide} />)}</ul>
+      </section>
+    ))}
+    <ChecklistCta />
+  </div>
+</Base>

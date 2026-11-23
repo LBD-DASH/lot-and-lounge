@@ -1,0 +1,77 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { withBase, absUrl } from '../lib/url';
+
+const pdf = withBase('downloads/airport-day-packing-checklist.pdf');
+const sections = [
+  { n: '01', icon: 'ticket', h: 'Documents', items: ['Passport or ID, valid for the whole trip', 'Visa or travel authorisation, if needed', 'Boarding pass on your phone, plus a screenshot', 'Booking references and insurance helpline'] },
+  { n: '02', icon: 'car', h: 'Parking & the car', items: ['Parking confirmation and the exact car park name', 'Number plate matches your booking', 'Photo of your bay, level and row sign', 'Shuttle or train stop noted for the way back'] },
+  { n: '03', icon: 'shield', h: 'Security-ready bag', items: ["Liquids packed to your departure airport's current rules", 'Laptop and tablet easy to reach', 'Medication in your hand luggage', 'Bag weight checked against your allowance'] },
+  { n: '04', icon: 'lounge', h: 'Lounge & comfort', items: ['Lounge access proof: booking, app or eligible ticket', 'Lounge location checked for your terminal', 'Layer for the plane, headphones, eye mask', 'Snack for the gap before boarding'] },
+  { n: '05', icon: 'calc', h: 'Tech & money', items: ['Phone charged, power bank in hand luggage', 'Cables and a plug adapter', 'Offline copies of tickets and addresses', 'Roaming or eSIM sorted before you fly'] },
+  { n: '06', icon: 'check', h: 'Before you lock the door', items: ['Check-in done and seat confirmed', 'Departure time and terminal rechecked', 'Route to the car park, with time for traffic', 'Someone at home has your flight details'] },
+];
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Free Airport Day Packing Checklist (printable PDF)',
+    url: absUrl('checklist/', Astro.site),
+  },
+];
+---
+<Base title="Free Airport Day Packing Checklist (printable PDF)" description="A free one-page printable PDF checklist for the day you fly: documents, parking, a security-ready bag, lounge access and tech, from the driveway to the gate." path="checklist/" jsonLd={jsonLd}>
+  <section class="hero cl-hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Free printable · one page · PDF</span>
+        <h1>The Airport Day <em>Packing</em> Checklist</h1>
+        <p class="lede">
+          Everything for the day you fly, from the driveway to the gate: documents, the car park details people forget, a
+          security-ready bag and lounge access. Tick it off the night before, then once more as you lock the car.
+        </p>
+
+        <div class="cl-actions">
+          <a class="btn btn-amber" href={pdf} download><Icon name="download" size={18} /> Download the checklist (PDF)</a>
+          <span class="cl-meta">Free · one A4 page · no sign-up</span>
+        </div>
+      </div>
+      <div class="cl-sheet" aria-hidden="true">
+        <span class="cl-sheet-h">Airport Day <em>Packing</em> Checklist</span>
+        {['Passport or ID', 'Boarding pass and a screenshot', 'Parking confirmation', 'Photo of your bay and level', 'Liquids packed to the rules', 'Lounge access proof', 'Power bank in hand luggage'].map((t, i) => (
+          <span class={`cl-row${i < 3 ? ' done' : ''}`}><span class="cl-box">{i < 3 && <Icon name="check" size={12} />}</span>{t}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+  <div class="bay-strip" aria-hidden="true"></div>
+
+  <section class="section" aria-labelledby="inside-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">What's on the page</span>
+        <h2 id="inside-h">Six short lists, in the order your day happens</h2>
+        <p>Designed to print on a single A4 sheet, with tick boxes. A few lines from each list:</p>
+      </div>
+      <ol class="steps cl-steps">
+        {sections.map((s) => (
+          <li class="step">
+            <span class="step-ico"><Icon name={s.icon} size={22} /></span>
+            <h3>{s.h}</h3>
+            <ul class="small muted cl-list">{s.items.map((i) => <li>{i}</li>)}</ul>
+          </li>
+        ))}
+      </ol>
+      <div class="runway" aria-hidden="true"><Icon name="plane" size={22} /></div>
+      <div class="disclosure">
+        <Icon name="shield" size={22} />
+        <p class="small">
+          <strong>No strings attached.</strong> The checklist is a free download: no account, no form and no sign-up.
+          Print it, or save it to your phone for the day you fly. <a href={withBase('privacy/')}>Privacy policy</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</Base>
