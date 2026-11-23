@@ -4,11 +4,16 @@ import { absUrl } from '../lib/url';
 
 export const GET: APIRoute = async ({ site }) => {
   const airports = await getCollection('airports');
+  const guides = await getCollection('guides');
+  const latestGuide = guides.reduce((m, g) => (g.data.lastUpdated > m ? g.data.lastUpdated : m), new Date(0));
   const latest = airports.reduce((m, a) => (a.data.lastUpdated > m ? a.data.lastUpdated : m), new Date(0));
   const day = (d: Date) => d.toISOString().slice(0, 10);
   const urls = [
     { loc: absUrl('', site), lastmod: day(latest) },
     ...airports.map((a) => ({ loc: absUrl(`airports/${a.id}/`, site), lastmod: day(a.data.lastUpdated) })),
+    { loc: absUrl('guides/', site), lastmod: day(latestGuide) },
+    ...guides.map((g) => ({ loc: absUrl(`guides/${g.id}/`, site), lastmod: day(g.data.lastUpdated) })),
+    { loc: absUrl('checklist/', site) },
     { loc: absUrl('about/', site) },
     { loc: absUrl('affiliate-disclosure/', site) },
     { loc: absUrl('privacy/', site) },

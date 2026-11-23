@@ -4,7 +4,8 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import FeaturedApp from '../components/FeaturedApp.astro';
 import HeroScene from '../components/HeroScene.astro';
-import { allPartners } from '../lib/partners';
+import GuideCard from '../components/GuideCard.astro';
+import { sortGuides } from '../lib/guides';
 import { withBase, absUrl, SITE_NAME } from '../lib/url';
 import { groupByRegion } from '../lib/regions';
 
@@ -25,11 +26,12 @@ const jsonLd = [
     })),
   },
 ];
+const guides = sortGuides(await getCollection('guides'));
+const featuredGuides = [...['Parking', 'Lounges', 'Budget travel'].map((t) => guides.find((g) => g.data.topic === t))].filter((g): g is NonNullable<typeof g> => Boolean(g));
 const regions = groupByRegion(airports, (a) => a.data.country);
 const countries = new Set(airports.map((a) => a.data.country)).size;
 const latest = airports.reduce((m, a) => (a.data.lastUpdated > m ? a.data.lastUpdated : m), airports[0].data.lastUpdated);
 const latestPretty = latest.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
-const anyAffiliate = allPartners().some((p) => p.affiliate);
 ---
 <Base title={`${SITE_NAME}: ${title}`} description={description} path="" jsonLd={jsonLd}>
   <section class="hero">
@@ -192,6 +194,22 @@ const anyAffiliate = allPartners().some((p) => p.affiliate);
     </div>
   </section>
 
+  {featuredGuides.length > 0 && (
+    <section class="section" aria-labelledby="guides-h">
+      <div class="wrap">
+        <div class="grid-head">
+          <div class="section-head" style="margin-bottom:0">
+            <span class="eyebrow">Guides</span>
+            <h2 id="guides-h">Beyond one airport: the questions people actually search</h2>
+            <p>Cheapest lots, lounges without status, and whether the train beats the car park. Built from the same dated sources.</p>
+          </div>
+          <a class="btn btn-ghost" href={withBase('guides/')}>All {guides.length} guides <Icon name="arrow" size={18} /></a>
+        </div>
+        <ul class="gcards">{featuredGuides.map((g) => <GuideCard guide={g} />)}</ul>
+      </div>
+    </section>
+  )}
+
   <FeaturedApp variant="band" />
 
   <section class="section" aria-labelledby="how-h">
@@ -218,9 +236,7 @@ const anyAffiliate = allPartners().some((p) => p.affiliate);
         <Icon name="shield" size={22} />
         <p class="small">
           <strong>How we make money.</strong>
-          {anyAffiliate
-            ? ' Some partner links on this site are affiliate links: if you book, the partner may pay us a share at no extra cost to you.'
-            : ' We plan to earn affiliate commissions from partner links; none of our links are affiliate links yet.'}
+          {' Some links on this site are affiliate links, including links converted by our partners Stay22 and Travelpayouts: if you book, the partner may pay us a commission at no extra cost to you.'}
           {' '}Commissions never change the official rates we publish or the order of the cheapest options.
           <a href={withBase('affiliate-disclosure/')}>Read the affiliate disclosure</a>.
         </p>
