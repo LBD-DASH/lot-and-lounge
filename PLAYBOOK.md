@@ -127,7 +127,7 @@ Once a week, re-check the oldest `lastChecked` page against its sources, update 
 
 ## Priority list
 
-Done: [x] ATL · [x] JFK · [x] LAX · [x] ORD · [x] JNB · [x] DFW · [x] DEN · [x] LAS · [x] MCO · [x] CLT · [x] MIA · [x] SEA · [x] SFO · [x] EWR · [x] PHX · [x] IAH · [x] BOS
+Done: [x] ATL · [x] JFK · [x] LAX · [x] ORD · [x] JNB · [x] DFW · [x] DEN · [x] LAS · [x] MCO · [x] CLT · [x] MIA · [x] SEA · [x] SFO · [x] EWR · [x] PHX · [x] IAH · [x] BOS · [x] FLL · [x] MSP · [x] LGA
 
 Next, in order. The top US airports by passengers come first; international hubs follow.
 
@@ -138,9 +138,9 @@ Next, in order. The top US airports by passengers come first; international hubs
 5. [x] PHX, Phoenix Sky Harbor
 6. [x] IAH, Houston Bush
 7. [x] BOS, Boston Logan
-8. [ ] FLL, Fort Lauderdale
-9. [ ] MSP, Minneapolis–St Paul
-10. [ ] LGA, New York LaGuardia
+8. [x] FLL, Fort Lauderdale
+9. [x] MSP, Minneapolis–St Paul
+10. [x] LGA, New York LaGuardia
 11. [ ] DTW, Detroit
 12. [ ] PHL, Philadelphia
 13. [ ] SLC, Salt Lake City
