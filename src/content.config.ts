@@ -27,4 +27,22 @@ const airports = defineCollection({
   }),
 });
 
-export const collections = { airports };
+const guides = defineCollection({
+  // One Markdown file per guide: src/content/guides/<slug>.md
+  // Every fact in a guide must come from the linked airport pages (same check dates) or an official source listed in `sources`.
+  loader: glob({ pattern: '**/*.md', base: './src/content/guides' }),
+  schema: z.object({
+    title: z.string().min(20).max(70),
+    description: z.string().min(70).max(160),
+    keyword: z.string(), // the search query this guide targets
+    topic: z.enum(['Parking', 'Lounges', 'Budget travel']),
+    airports: z.array(z.string()).default([]), // airport collection ids, e.g. ["jfk"]
+    answer: z.string(), // one-paragraph quick answer shown in the ticket at the top
+    lastUpdated: z.coerce.date(),
+    lastChecked: z.string(),
+    order: z.number().default(100),
+    sources: z.array(z.object({ label: z.string(), url: z.string().url() })).default([]),
+  }),
+});
+
+export const collections = { airports, guides };
