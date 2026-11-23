@@ -18,7 +18,7 @@ const anyAffiliate = list.some((p) => p.affiliate);
       shuttle frequency) before you book.
       {anyAffiliate
         ? <> Some of these are affiliate links. <a href={withBase('affiliate-disclosure/')}>How we make money</a>.</>
-        : <> We have no affiliate relationship with these sites today. <a href={withBase('affiliate-disclosure/')}>Disclosure</a>.</>}
+        : <> We have no direct affiliate deal with these sites yet, though our partner networks may convert some links into affiliate links. <a href={withBase('affiliate-disclosure/')}>Disclosure</a>.</>}
     </p>
     <ul class="partner-list">
       {list.map((p) => (

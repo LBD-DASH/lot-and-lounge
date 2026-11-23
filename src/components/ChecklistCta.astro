@@ -1,0 +1,27 @@
+---
+import Icon from './Icon.astro';
+import { withBase } from '../lib/url';
+interface Props { variant?: 'band' | 'side' }
+const { variant = 'band' } = Astro.props;
+---
+{variant === 'side' ? (
+  <a class="cl-side" href={withBase('checklist/')}>
+    <span class="cl-ico" aria-hidden="true"><Icon name="clipboard" size={20} /></span>
+    <span><strong>Free: Airport Day Packing Checklist</strong><span class="small">One printable page, from the driveway to the gate.</span></span>
+  </a>
+) : (
+  <aside class="cl-band" aria-label="Free packing checklist">
+    <div class="cl-sheet" aria-hidden="true">
+      <span class="cl-sheet-h">Airport Day <em>Packing</em> Checklist</span>
+      {['Passport or ID', 'Parking confirmation', 'Photo of your bay', 'Lounge access proof', 'Power bank in hand luggage'].map((t, i) => (
+        <span class={`cl-row${i < 2 ? ' done' : ''}`}><span class="cl-box">{i < 2 && <Icon name="check" size={12} />}</span>{t}</span>
+      ))}
+    </div>
+    <div class="cl-copy">
+      <span class="eyebrow">Free printable</span>
+      <h2>The Airport Day Packing Checklist</h2>
+      <p>Documents, parking, the security-ready bag and lounge access on one page. Tick it off the night before, then once more as you lock the car.</p>
+      <a class="btn btn-amber" href={withBase('checklist/')}>Get the free PDF, no sign-up <Icon name="arrow" size={18} /></a>
+    </div>
+  </aside>
+)}
