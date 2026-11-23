@@ -6,6 +6,8 @@ import CarHire from '../../components/CarHire.astro';
 import Icon from '../../components/Icon.astro';
 import { absUrl, withBase, SITE_NAME } from '../../lib/url';
 import { regionOf, regionSlug } from '../../lib/regions';
+import GuideCard from '../../components/GuideCard.astro';
+import { guidesFor } from '../../lib/guides';
 
 export async function getStaticPaths() {
   const airports = await getCollection('airports');
@@ -49,6 +51,7 @@ const jsonLd = [
 ];
 const toc = headings.filter((h) => h.depth === 2);
 const region = regionOf(d.country);
+const related = guidesFor(await getCollection('guides'), entry.id).slice(0, 4);
 ---
 <Base title={d.title} description={d.description} path={path} jsonLd={jsonLd} ogType="article">
   <header class="ap-hero">
@@ -98,6 +101,13 @@ const region = regionOf(d.country);
         <PartnerBox keys={d.partners} airport={d.iata} />
 
         <CarHire airport={d.iata} airportName={d.airportName} city={d.city} />
+
+        {related.length > 0 && (
+          <section class="ap-related" aria-labelledby="guides-h">
+            <h2 id="guides-h">Guides that cover {d.iata}</h2>
+            <ul class="gcards">{related.map((g) => <GuideCard guide={g} compact />)}</ul>
+          </section>
+        )}
 
         <section class="prose" aria-labelledby="faq-h">
           <h2 id="faq-h">FAQ</h2>

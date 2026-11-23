@@ -2,18 +2,35 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import { allPartners } from '../lib/partners';
+import { withBase } from '../lib/url';
 const list = allPartners();
-const anyAffiliate = list.some((p) => p.affiliate);
 ---
-<Base title="Affiliate disclosure" description={`How Lot & Lounge makes money: which outbound links are affiliate links${anyAffiliate ? '' : ' (currently none)'}, and how that never changes the official prices we publish.`} path="affiliate-disclosure/">
+<Base title="Affiliate disclosure" description="How Lot & Lounge makes money: we may earn a commission from partners such as Stay22 and Travelpayouts brands, at no extra cost to you. It never changes our prices." path="affiliate-disclosure/">
   <PageHead title="Affiliate disclosure" eyebrow="Transparency" />
   <div class="wrap"><div class="prose read page-body">
-    <p>Lot &amp; Lounge plans to earn money through affiliate commissions: if you click a partner link and book, the partner may pay us a share at no extra cost to you.</p>
-    <p><strong>Current status:</strong> {anyAffiliate ? 'some partner links below are affiliate links.' : 'none of our links are affiliate links yet. Partner links point to the plain official websites.'}</p>
+    <p><strong>Last updated:</strong> 22 Nov 2026</p>
+    <p>Lot &amp; Lounge earns money through affiliate commissions. If you click a link on this site and then book, the company you book with may pay us a commission. It costs you nothing extra.</p>
+
+    <h2 id="networks">Affiliate networks on this site</h2>
+    <p>Every page loads scripts from two affiliate networks. They can automatically turn some travel and hotel links into affiliate links, so you may not be able to tell from the link itself:</p>
     <ul>
-      {list.map((p) => <li>{p.name}: {p.affiliate ? 'affiliate link' : 'plain link, no affiliate relationship'}</li>)}
+      <li><strong>Stay22</strong>, for hotel and accommodation links.</li>
+      <li><strong>Travelpayouts</strong>, for links to its partner travel brands.</li>
+    </ul>
+    <p>So we may earn a commission from partners including Stay22 and Travelpayouts partner brands. What those scripts may collect is explained in our <a href={withBase('privacy/')}>privacy policy</a>.</p>
+
+    <h2 id="partners">Partners we name on airport pages</h2>
+    <p>These are the links in the "Compare and book" box on airport pages. We mark each one as an affiliate link once a program approves us:</p>
+    <ul>
+      {list.map((p) => <li>{p.name}: {p.affiliate ? 'affiliate link' : 'no direct affiliate deal yet (the link may still be converted by the networks above)'}</li>)}
     </ul>
     <p>By the way: Voyaij, the travel app we feature, is run by someone close to us. We recommend it because we use it, but we wanted you to know.</p>
-    <p>Commissions never change the official rates we publish or the order of the cheapest options. Official airport-run parking is always listed, even when no one pays us for it. We don't recommend credit cards.</p>
+
+    <h2 id="independence">What commissions never change</h2>
+    <ul>
+      <li>The official rates we publish, or the order of the cheapest options.</li>
+      <li>Official airport-run parking is always listed, even when no one pays us for it.</li>
+      <li>We don't recommend credit cards or other financial products.</li>
+    </ul>
   </div></div>
 </Base>

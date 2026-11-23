@@ -66,6 +66,7 @@ const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
         <a class="brand" href={withBase('')} aria-label="Lot & Lounge home"><Logo /><span>Lot <span class="amp">&</span> Lounge</span></a>
         <nav class="site-nav" aria-label="Main">
           <a href={withBase('')}>Airports</a>
+          <a href={withBase('guides/')}>Guides</a>
           <a class="hide-sm" href={withBase('affiliate-disclosure/')}>Disclosure</a>
           <a href={withBase('about/')}>About</a>
           <a class="nav-cta hide-sm" href={withBase('#airports')}>Find your airport</a>
@@ -86,6 +87,8 @@ const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
           </p>
         </div>
         <ul class="foot-links">
+          <li><Icon name="book" size={16} /><a href={withBase('guides/')}>Guides</a></li>
+          <li><Icon name="clipboard" size={16} /><a href={withBase('checklist/')}>Free packing checklist</a></li>
           <li><Icon name="shield" size={16} /><a href={withBase('affiliate-disclosure/')}>Affiliate disclosure</a></li>
           <li><Icon name="check" size={16} /><a href={withBase('privacy/')}>Privacy</a></li>
           <li><Icon name="layers" size={16} /><a href={withBase('about/')}>About & sourcing</a></li>
