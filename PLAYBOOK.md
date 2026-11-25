@@ -127,7 +127,7 @@ Once a week, re-check the oldest `lastChecked` page against its sources, update 
 
 ## Priority list
 
-Done: [x] ATL · [x] JFK · [x] LAX · [x] ORD · [x] JNB · [x] DFW · [x] DEN · [x] LAS · [x] MCO · [x] CLT · [x] MIA · [x] SEA · [x] SFO · [x] EWR · [x] PHX · [x] IAH · [x] BOS · [x] FLL · [x] MSP · [x] LGA · [x] DTW · [x] PHL · [x] SLC · [x] BWI · [x] DCA · [x] IAD · [x] SAN · [x] TPA
+Done: [x] ATL · [x] JFK · [x] LAX · [x] ORD · [x] JNB · [x] DFW · [x] DEN · [x] LAS · [x] MCO · [x] CLT · [x] MIA · [x] SEA · [x] SFO · [x] EWR · [x] PHX · [x] IAH · [x] BOS · [x] FLL · [x] MSP · [x] LGA · [x] DTW · [x] PHL · [x] SLC · [x] BWI · [x] DCA · [x] IAD · [x] SAN · [x] TPA · [x] BNA · [x] AUS · [x] MDW · [x] CPT · [x] DXB
 
 Next, in order. The top US airports by passengers come first; international hubs follow.
 
@@ -149,11 +149,11 @@ Next, in order. The top US airports by passengers come first; international hubs
 16. [x] IAD, Washington Dulles
 17. [x] SAN, San Diego
 18. [x] TPA, Tampa
-19. [ ] BNA, Nashville
-20. [ ] AUS, Austin
-21. [ ] MDW, Chicago Midway
-22. [ ] CPT, Cape Town (ACSA tariff PDF also covers CTIA)
+19. [x] BNA, Nashville
+20. [x] AUS, Austin
+21. [x] MDW, Chicago Midway
+22. [x] CPT, Cape Town (ACSA tariff PDF also covers CTIA)
 23. [ ] LHR, London Heathrow
-24. [ ] DXB, Dubai
+24. [x] DXB, Dubai
 25. [ ] SIN, Singapore Changi
 26. [ ] CDG, Paris Charles de Gaulle
