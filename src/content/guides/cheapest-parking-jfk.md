@@ -4,6 +4,7 @@ description: "The cheapest official parking at JFK is the Long-Term Lot, from $3
 keyword: "cheapest parking at JFK"
 topic: Parking
 airports: [jfk]
+partners: [discover-cars]
 answer: "Pre-book the Long-Term Lot at least 3 hours ahead: from $35 a day, or $245 for a week at the lowest rate, against $574 for a drive-up week in the Terminal 4 Blue Lot. For one person on a long trip, the AirTrain plus the subway or LIRR usually costs less than any lot."
 lastUpdated: 2026-11-22
 lastChecked: "19 Nov 2026"

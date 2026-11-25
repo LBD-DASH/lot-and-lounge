@@ -4,7 +4,10 @@ import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
 import GuideCard from '../../components/GuideCard.astro';
 import ChecklistCta from '../../components/ChecklistCta.astro';
+import PartnerBox from '../../components/PartnerBox.astro';
+import CarHire from '../../components/CarHire.astro';
 import { absUrl, withBase, SITE_NAME } from '../../lib/url';
+import { getPartner } from '../../lib/partners';
 import { TOPIC_ICON, topicSlug, readMins, sortGuides } from '../../lib/guides';
 
 export async function getStaticPaths() {
@@ -24,6 +27,12 @@ const mins = readMins(entry);
 
 // Airports this guide draws its facts from: shown in the sidebar and as sources.
 const airports = (await Promise.all(d.airports.map((id) => getEntry('airports', id)))).filter(Boolean) as NonNullable<Awaited<ReturnType<typeof getEntry<'airports', string>>>>[];
+
+// Same partner components as airport pages. Car hire is its own block; the partner box is for the rest.
+const guidePartners = d.partners.map((key) => getPartner(key));
+const boxKeys = guidePartners.filter((p) => p.kind !== 'carhire' && p.kind !== 'app').map((p) => p.key);
+const showCarHire = guidePartners.some((p) => p.key === 'discover-cars');
+const soleAirport = airports.length === 1 ? airports[0] : null;
 
 // Related guides: same topic or a shared airport, excluding this one.
 const all = await getCollection('guides');
@@ -115,6 +124,14 @@ const jsonLd = [
         </p>
 
         <div class="prose"><Content /></div>
+
+        {boxKeys.length > 0 && <PartnerBox keys={boxKeys} airport={soleAirport ? soleAirport.data.iata : 'these airports'} />}
+        {showCarHire && soleAirport && (
+          <CarHire airport={soleAirport.data.iata} airportName={soleAirport.data.airportName} city={soleAirport.data.city} />
+        )}
+        {showCarHire && !soleAirport && (
+          <CarHire airport="these airports" airportName="the airports compared here" city="the city you are visiting" />
+        )}
 
         <section class="prose sources" aria-labelledby="src-h">
           <h2 id="src-h">Sources (checked {d.lastChecked})</h2>

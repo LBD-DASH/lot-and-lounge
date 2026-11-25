@@ -4,6 +4,7 @@ description: "Heathrow Park & Ride costs £290 for a drive-up week against £700
 keyword: "cheapest parking at Heathrow"
 topic: Parking
 airports: [lhr]
+partners: [discover-cars]
 answer: "Heathrow's own Park & Ride (formerly Long Stay) is the cheapest official drive-up option: £50 for the first day, then £40 a day, so £290 for a week against £700 in Terminal Parking. Heathrow says pre-booking gets the best price for stays over 24 hours, so get a quote before you drive in."
 lastUpdated: 2026-11-22
 lastChecked: "20 Nov 2026"
