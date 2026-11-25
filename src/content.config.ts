@@ -37,6 +37,7 @@ const guides = defineCollection({
     keyword: z.string(), // the search query this guide targets
     topic: z.enum(['Parking', 'Lounges', 'Budget travel']),
     airports: z.array(z.string()).default([]), // airport collection ids, e.g. ["jfk"]
+    partners: z.array(z.string()).default([]), // keys from src/data/partners.json
     answer: z.string(), // one-paragraph quick answer shown in the ticket at the top
     lastUpdated: z.coerce.date(),
     lastChecked: z.string(),

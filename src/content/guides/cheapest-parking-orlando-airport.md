@@ -4,6 +4,7 @@ description: "MCO's three economy lots cost $14 per 24 hours ($98 a week) with a
 keyword: "cheapest parking at Orlando airport"
 topic: Parking
 airports: [mco]
+partners: [discover-cars]
 answer: "The three MCO economy lots (North Park Place, South Park Place and West Park) are the cheapest official parking at $14 per 24 hours, or $98 for a week, with free 24-hour shuttles. The terminal garages are $24 a day ($168 a week), and the only reservable option, Garage C, costs $32: $8 a day more than driving up."
 lastUpdated: 2026-11-22
 lastChecked: "19 Nov 2026"
