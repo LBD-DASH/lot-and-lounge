@@ -7,12 +7,13 @@ const { variant = 'card' } = Astro.props;
 const app = getPartner('voyaij');
 const shot = withBase('partners/voyaij-app-cities.svg');
 const shotSm = withBase('partners/voyaij-app-cities-sm.svg');
+const shotAlt = 'Screenshot of the Voyaij app showing a trip with London, Paris and Amsterdam';
 ---
 {variant === 'card' ? (
   <div class="fa-card">
     <span class="fa-badge"><Icon name="plane" size={14} /> Featured app</span>
     <div class="fa-body">
-      <span class="fa-thumb" aria-hidden="true"><img src={shotSm} alt="" width="393" height="852" /></span>
+      <span class="fa-thumb"><img src={shotSm} alt={shotAlt} width="393" height="852" /></span>
       <div class="fa-text">
         <h3>{app.name}</h3>
         <p>{app.blurb}</p>
@@ -34,7 +35,7 @@ const shotSm = withBase('partners/voyaij-app-cities-sm.svg');
         <svg class="fa-path fa-path-back" viewBox="0 0 600 760" aria-hidden="true">
           <g transform="translate(300 380) rotate(-22)"><path d="M-290 0 A290 95 0 0 1 290 0" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 11"/></g>
         </svg>
-        <div class="fa-phone" role="img" aria-label="Screenshot of the Voyaij app showing a trip with London, Paris and Amsterdam"><span class="fa-notch"></span><img src={shot} alt="" width="786" height="1704" /></div>
+        <div class="fa-phone"><span class="fa-notch"></span><img src={shot} alt={shotAlt} width="786" height="1704" /></div>
         <svg class="fa-path fa-path-front" viewBox="0 0 600 760" aria-hidden="true">
           <g transform="translate(300 380) rotate(-22)"><path d="M-290 0 A290 95 0 0 0 290 0" fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 11"/>
           <g transform="translate(237 54) rotate(-35) scale(2.6) translate(-12 -12)" fill="#f5a524"><path d="M21 12c0-.8-.7-1.5-1.5-1.5H15L10 3H8l2.5 7.5H6L4.5 8.5H3l1 3.5-1 3.5h1.5L6 13.5h4.5L8 21h2l5-7.5h4.5c.8 0 1.5-.7 1.5-1.5z"/></g></g>

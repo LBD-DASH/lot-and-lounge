@@ -47,7 +47,7 @@ Path: `src/content/airports/<iata-lowercase>.md` (the filename becomes the URL: 
 | `airportName` | Official name |
 | `city`, `country` | Strings |
 | `title` | 20–70 chars, unique. Pattern: `"<IATA> Parking Rates & Lounges by Terminal (<Mon YYYY>)"` |
-| `description` | 70–160 chars, unique. Include the cheapest official daily rate and "by terminal". |
+| `description` | 120 to 160 chars, unique. Include the cheapest official daily rate and "by terminal". |
 | `lastUpdated` | `YYYY-MM-DD` |
 | `lastChecked` | e.g. `"19 Nov 2026"` |
 | `currency` | ISO code, e.g. `USD`, `ZAR` |

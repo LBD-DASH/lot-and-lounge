@@ -15,7 +15,11 @@ interface Props {
 }
 const { title, description, path, jsonLd = [], ogType = 'website' } = Astro.props;
 const canonical = absUrl(path, Astro.site);
-const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
+const ogImage = absUrl('og-default.png', Astro.site);
+const ogAlt = 'Lot & Lounge: Airport parking and lounges, compared';
+// Document titles stay within 70 characters. Append the brand only when it still fits.
+const withBrand = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
+const fullTitle = (withBrand.length <= 70 ? withBrand : title).slice(0, 70).trimEnd();
 ---
 <!doctype html>
 <html lang="en">
@@ -34,7 +38,16 @@ const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={ogAlt} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogAlt} />
     <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
     <link rel="sitemap" href={withBase('sitemap.xml')} />
     {jsonLd.map((obj) => <script type="application/ld+json" set:html={JSON.stringify(obj)} />)}

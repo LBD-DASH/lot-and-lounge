@@ -4,7 +4,7 @@ airportName: Fort Lauderdale-Hollywood International Airport
 city: Fort Lauderdale
 country: USA
 title: "FLL Parking Rates & Lounges by Terminal (Nov 2026)"
-description: "Official FLL Long-Term parking at $20/day ($140/week), Short-Term, Valet, Overflow lot, and FLL lounges by terminal."
+description: "Official FLL Long-Term parking at $20/day ($140/week), plus Short-Term, Valet, Overflow lot, and FLL lounges by terminal."
 lastUpdated: 2026-11-23
 lastChecked: "23 Nov 2026"
 currency: USD

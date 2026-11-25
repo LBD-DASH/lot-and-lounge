@@ -10,7 +10,7 @@ import { withBase, absUrl, SITE_NAME } from '../lib/url';
 import { groupByRegion } from '../lib/regions';
 
 const airports = (await getCollection('airports')).sort((a, b) => a.data.city.localeCompare(b.data.city));
-const title = 'Airport Parking Costs & Lounge Access, Airport by Airport';
+const title = 'Airport Parking Costs & Lounge Access by Airport';
 const description =
   'Real total parking costs and lounge options for major airports, checked against official airport and lounge sources, terminal by terminal.';
 const jsonLd = [

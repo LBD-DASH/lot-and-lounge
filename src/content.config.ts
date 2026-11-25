@@ -11,7 +11,7 @@ const airports = defineCollection({
     city: z.string(),
     country: z.string(),
     title: z.string().min(20).max(70),
-    description: z.string().min(70).max(160),
+    description: z.string().min(120).max(160),
     lastUpdated: z.coerce.date(),
     lastChecked: z.string(), // human-readable, e.g. "19 Nov 2026"
     currency: z.string(),
@@ -33,7 +33,7 @@ const guides = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/guides' }),
   schema: z.object({
     title: z.string().min(20).max(70),
-    description: z.string().min(70).max(160),
+    description: z.string().min(120).max(160),
     keyword: z.string(), // the search query this guide targets
     topic: z.enum(['Parking', 'Lounges', 'Budget travel']),
     airports: z.array(z.string()).default([]), // airport collection ids, e.g. ["jfk"]
