@@ -127,7 +127,7 @@ Once a week, re-check the oldest `lastChecked` page against its sources, update 
 
 ## Priority list
 
-Done: [x] ATL · [x] JFK · [x] LAX · [x] ORD · [x] JNB · [x] DFW · [x] DEN · [x] LAS · [x] MCO · [x] CLT · [x] MIA · [x] SEA · [x] SFO · [x] EWR · [x] PHX · [x] IAH · [x] BOS · [x] FLL · [x] MSP · [x] LGA · [x] DTW · [x] PHL · [x] SLC · [x] BWI · [x] DCA · [x] IAD
+Done: [x] ATL · [x] JFK · [x] LAX · [x] ORD · [x] JNB · [x] DFW · [x] DEN · [x] LAS · [x] MCO · [x] CLT · [x] MIA · [x] SEA · [x] SFO · [x] EWR · [x] PHX · [x] IAH · [x] BOS · [x] FLL · [x] MSP · [x] LGA · [x] DTW · [x] PHL · [x] SLC · [x] BWI · [x] DCA · [x] IAD · [x] SAN · [x] TPA
 
 Next, in order. The top US airports by passengers come first; international hubs follow.
 
@@ -147,8 +147,8 @@ Next, in order. The top US airports by passengers come first; international hubs
 14. [x] BWI, Baltimore/Washington
 15. [x] DCA, Washington Reagan National
 16. [x] IAD, Washington Dulles
-17. [ ] SAN, San Diego
-18. [ ] TPA, Tampa
+17. [x] SAN, San Diego
+18. [x] TPA, Tampa
 19. [ ] BNA, Nashville
 20. [ ] AUS, Austin
 21. [ ] MDW, Chicago Midway
