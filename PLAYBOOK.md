@@ -127,7 +127,7 @@ Once a week, re-check the oldest `lastChecked` page against its sources, update 
 
 ## Priority list
 
-Done: [x] ATL · [x] JFK · [x] LAX · [x] ORD · [x] JNB · [x] DFW · [x] DEN · [x] LAS · [x] MCO · [x] CLT · [x] MIA · [x] SEA · [x] SFO · [x] EWR · [x] PHX · [x] IAH · [x] BOS · [x] FLL · [x] MSP · [x] LGA · [x] DTW · [x] PHL · [x] SLC · [x] BWI · [x] DCA · [x] IAD · [x] SAN · [x] TPA · [x] BNA · [x] AUS · [x] MDW · [x] CPT · [x] DXB
+Done: [x] ATL · [x] JFK · [x] LAX · [x] ORD · [x] JNB · [x] DFW · [x] DEN · [x] LAS · [x] MCO · [x] CLT · [x] MIA · [x] SEA · [x] SFO · [x] EWR · [x] PHX · [x] IAH · [x] BOS · [x] FLL · [x] MSP · [x] LGA · [x] DTW · [x] PHL · [x] SLC · [x] BWI · [x] DCA · [x] IAD · [x] SAN · [x] TPA · [x] BNA · [x] AUS · [x] MDW · [x] CPT · [x] DXB · [x] STL · [x] HNL · [x] OAK · [x] PDX
 
 Next, in order. The top US airports by passengers come first; international hubs follow.
 
