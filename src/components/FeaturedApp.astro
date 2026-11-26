@@ -5,6 +5,7 @@ import Icon from './Icon.astro';
 interface Props { variant?: 'card' | 'band' }
 const { variant = 'card' } = Astro.props;
 const app = getPartner('voyaij');
+const click = (part: string) => `partner-${app.key}-${part}`;
 const shot = withBase('partners/voyaij-app-cities.svg');
 const shotSm = withBase('partners/voyaij-app-cities-sm.svg');
 const shotAlt = 'Screenshot of the Voyaij app showing a trip with London, Paris and Amsterdam';
@@ -20,8 +21,8 @@ const shotAlt = 'Screenshot of the Voyaij app showing a trip with London, Paris 
       </div>
     </div>
     <div class="fa-actions">
-      <a class="gp-btn" href={app.playUrl} rel={PARTNER_REL} target="_blank"><svg width="18" height="20" viewBox="0 0 18 20" aria-hidden="true"><path d="M1 1l9 9-9 9z" fill="#34a853"/><path d="M1 1l11 6-2 3z" fill="#4285f4"/><path d="M1 19l11-6-2-3z" fill="#ea4335"/><path d="M12 7l5 3-5 3-2-3z" fill="#fbbc04"/></svg><span><small>Get it on</small><b>Google Play</b></span></a>
-      <a class="fa-start" href={app.url} rel={PARTNER_REL} target="_blank">Get started free <Icon name="arrow" size={16} /></a>
+      <a class="gp-btn" href={app.playUrl} rel={PARTNER_REL} target="_blank" data-goatcounter-click={click('play')} data-goatcounter-title={click('play')}><svg width="18" height="20" viewBox="0 0 18 20" aria-hidden="true"><path d="M1 1l9 9-9 9z" fill="#34a853"/><path d="M1 1l11 6-2 3z" fill="#4285f4"/><path d="M1 19l11-6-2-3z" fill="#ea4335"/><path d="M12 7l5 3-5 3-2-3z" fill="#fbbc04"/></svg><span><small>Get it on</small><b>Google Play</b></span></a>
+      <a class="fa-start" href={app.url} rel={PARTNER_REL} target="_blank" data-goatcounter-click={click('site')} data-goatcounter-title={click('site')}>Get started free <Icon name="arrow" size={16} /></a>
     </div>
   </div>
 ) : (
@@ -45,9 +46,9 @@ const shotAlt = 'Screenshot of the Voyaij app showing a trip with London, Paris 
         <h3 class="fa-name">{app.name}</h3>
         <p class="fa-pitch">{app.blurb}</p>
         <div class="fa-actions">
-          <a class="gp-btn" href={app.playUrl} rel={PARTNER_REL} target="_blank"><svg width="18" height="20" viewBox="0 0 18 20" aria-hidden="true"><path d="M1 1l9 9-9 9z" fill="#34a853"/><path d="M1 1l11 6-2 3z" fill="#4285f4"/><path d="M1 19l11-6-2-3z" fill="#ea4335"/><path d="M12 7l5 3-5 3-2-3z" fill="#fbbc04"/></svg><span><small>Get it on</small><b>Google Play</b></span></a>
-          <a class="fa-start" href={app.url} rel={PARTNER_REL} target="_blank">Get started free <Icon name="arrow" size={16} /></a>
-          <a class="fa-demo" href={app.demoUrl} rel={PARTNER_REL} target="_blank">See a live demo</a>
+          <a class="gp-btn" href={app.playUrl} rel={PARTNER_REL} target="_blank" data-goatcounter-click={click('play')} data-goatcounter-title={click('play')}><svg width="18" height="20" viewBox="0 0 18 20" aria-hidden="true"><path d="M1 1l9 9-9 9z" fill="#34a853"/><path d="M1 1l11 6-2 3z" fill="#4285f4"/><path d="M1 19l11-6-2-3z" fill="#ea4335"/><path d="M12 7l5 3-5 3-2-3z" fill="#fbbc04"/></svg><span><small>Get it on</small><b>Google Play</b></span></a>
+          <a class="fa-start" href={app.url} rel={PARTNER_REL} target="_blank" data-goatcounter-click={click('site')} data-goatcounter-title={click('site')}>Get started free <Icon name="arrow" size={16} /></a>
+          <a class="fa-demo" href={app.demoUrl} rel={PARTNER_REL} target="_blank" data-goatcounter-click={click('demo')} data-goatcounter-title={click('demo')}>See a live demo</a>
         </div>
         <p class="fa-partner"><a href={withBase('affiliate-disclosure/')}>Partner</a></p>
       </div>
