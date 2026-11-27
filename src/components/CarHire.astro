@@ -5,6 +5,7 @@ import Icon from './Icon.astro';
 interface Props { airport: string; airportName: string; city: string }
 const { airport, airportName, city } = Astro.props;
 const p = getPartner('discover-cars');
+const click = `partner-${p.key}-${airport.toLowerCase().replace(/ /g, '-')}`;
 ---
 <section class="carhire" aria-labelledby="carhire-h">
   <span class="ch-ico" aria-hidden="true"><Icon name="car" size={26} /></span>
@@ -18,5 +19,5 @@ const p = getPartner('discover-cars');
         : <>We have no affiliate relationship with this site today. <a href={withBase('affiliate-disclosure/')}>Disclosure</a>.</>}
     </p>
   </div>
-  <a class="btn btn-amber ch-cta" href={p.url} rel={PARTNER_REL} target="_blank">Compare car hire on {p.name} <Icon name="arrow" size={18} /></a>
+  <a class="btn btn-amber ch-cta" href={p.url} rel={PARTNER_REL} target="_blank" data-goatcounter-click={click} data-goatcounter-title={click}>Compare car hire on {p.name} <Icon name="arrow" size={18} /></a>
 </section>
